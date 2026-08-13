@@ -1,0 +1,19 @@
+name = "costiq-worker"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# Non-secret config. Secrets (SUPABASE_SERVICE_ROLE_KEY, SMS_DEMO_DECRYPT_KEY)
+# are set with `wrangler secret put <NAME>` once a real Cloudflare account
+# exists — never committed here. No JWT secret is needed: auth.ts verifies
+# tokens via supabase.auth.getUser(), not local signature verification.
+SUPABASE_URL = "https://nyfvtdqpasvxtaygzllz.supabase.co"
+
+[dev]
+port = 8787
+
+# Supabase project region is ap-southeast-1 (Singapore); Smart Placement
+# lets Cloudflare run the Worker near the DB/user instead of the request's PoP.
+[placement]
+mode = "smart"
