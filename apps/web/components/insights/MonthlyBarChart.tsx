@@ -7,10 +7,10 @@ export function MonthlyBarChart({ months }: { months: InsightsResponse["months"]
   return (
     <div className="bg-surface-raised border border-border rounded-xl p-6.5 flex flex-col gap-5">
       <span className="text-xl font-medium">Month by month</span>
-      <div className="flex items-end gap-4 sm:gap-6.5 h-[210px] pt-2.5">
+      <div className="flex items-end gap-4 sm:gap-6.5 h-[13.125rem] pt-2.5">
         {months.map((m) => (
           <div key={m.month} className="flex-1 flex flex-col items-center gap-2.5 h-full justify-end">
-            <span className="text-[13px] font-medium tabular-nums text-ink-2">{formatINR(m.total_spent)}</span>
+            <span className="text-[0.8125rem] font-medium tabular-nums text-ink-2">{formatINR(m.total_spent)}</span>
             <div
               className="w-full rounded-t-md bg-brand"
               style={{ height: `${Math.max(4, (m.total_spent / maxSpent) * 160)}px` }}

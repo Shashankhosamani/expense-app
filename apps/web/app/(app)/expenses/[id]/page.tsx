@@ -42,7 +42,7 @@ export default function TransactionDetailPage() {
     setMerchant(transaction.merchant ?? "");
   }, [transaction?.id]); // eslint-disable-line react-hooks/exhaustive-deps -- reset only when switching transactions
 
-  if (!transaction) return <Loading />;
+  if (!transaction) return <Loading fullPage />;
 
   async function save() {
     setSaving(true);
@@ -64,13 +64,13 @@ export default function TransactionDetailPage() {
   }
 
   return (
-    <div className="max-w-[640px] mx-auto flex flex-col">
+    <div className="max-w-[40rem] mx-auto flex flex-col">
       <div className="bg-surface-raised border border-border-4 rounded-2xl overflow-hidden">
         <div className="px-6.5 py-5.5 border-b border-border-3 flex items-start gap-3.5">
           <span className="w-1 h-9.5 rounded-sm bg-brand shrink-0" />
           <div className="flex-1 flex flex-col gap-1">
-            <span className="text-[22px] font-medium">{transaction.merchant ?? "Unknown"}</span>
-            <span className="text-[11px] text-ink-4">
+            <span className="text-[1.375rem] font-medium">{transaction.merchant ?? "Unknown"}</span>
+            <span className="text-[0.6875rem] text-ink-4">
               {formatDateTime(transaction.transaction_at)} ·{" "}
               {transaction.source === "sms" ? "read from a message" : "added by hand"}
             </span>

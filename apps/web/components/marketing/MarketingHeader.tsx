@@ -44,16 +44,16 @@ export function MarketingHeader() {
       {open && (
         <div className="md:hidden flex flex-col gap-1 px-5 py-3 border-t border-border-3">
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="py-3 text-[15px] font-semibold text-ink-2">
+            <a key={l.href} href={l.href} className="py-3 text-[0.9375rem] font-semibold text-ink-2">
               {l.label}
             </a>
           ))}
-          <Link href="/sign-in" className="py-3 text-[15px] font-semibold text-ink-2">
+          <Link href="/sign-in" className="py-3 text-[0.9375rem] font-semibold text-ink-2">
             Log in
           </Link>
           <Link
             href="/sign-in"
-            className="mt-2 bg-brand text-white rounded-lg px-4 py-3.5 text-[15px] font-bold text-center"
+            className="mt-2 bg-brand text-white rounded-lg px-4 py-3.5 text-[0.9375rem] font-bold text-center"
           >
             Sign up free
           </Link>

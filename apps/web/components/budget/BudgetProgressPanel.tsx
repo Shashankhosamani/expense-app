@@ -11,7 +11,7 @@ export function BudgetProgressPanel({ status }: { status: BudgetStatus | null })
       {status ? (
         <>
           <div className="flex items-end gap-2">
-            <span className="text-[32px] font-medium text-surface tabular-nums">{formatINR(status.spent)}</span>
+            <span className="text-[2rem] font-medium text-surface tabular-nums">{formatINR(status.spent)}</span>
             <span className="text-sm text-[#AFC8D1] pb-1">of {formatINR(status.limit_amount)}</span>
           </div>
           <ProgressBar

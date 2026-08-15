@@ -19,7 +19,7 @@ export default function DashboardPage() {
   const { transactions: recent } = useTransactions({ limit: 6 });
   const { total: reviewCount } = useReviewQueue();
 
-  if (summaryLoading) return <Loading />;
+  if (summaryLoading) return <Loading fullPage />;
 
   const monthLabel = new Date().toLocaleDateString("en-IN", { month: "long", year: "numeric" });
 
@@ -27,8 +27,8 @@ export default function DashboardPage() {
     <div className="flex flex-col gap-5">
       <div className="flex items-end justify-between">
         <div className="flex flex-col gap-1">
-          <h1 className="text-[30px] font-medium tracking-tight">{monthLabel}</h1>
-          <span className="text-[13px] text-ink-3">
+          <h1 className="text-[1.875rem] font-medium tracking-tight">{monthLabel}</h1>
+          <span className="text-[0.8125rem] text-ink-3">
             {summary?.expense_count ?? 0} expenses recorded · {summary?.messages_captured ?? 0} messages captured ·{" "}
             {summary?.not_transactions ?? 0} were not transactions
           </span>

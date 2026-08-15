@@ -14,7 +14,7 @@ export function Field({
 }) {
   return (
     <div className={cn("flex flex-col gap-1.5", className)}>
-      <label className="text-[10px] font-semibold uppercase tracking-wider text-ink-3">
+      <label className="text-[0.625rem] font-semibold uppercase tracking-wider text-ink-3">
         {label} {tag}
       </label>
       {children}

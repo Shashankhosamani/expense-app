@@ -23,7 +23,7 @@ export function LogoMark({ size = 28 }: { size?: number }) {
   );
 }
 
-export function Logo({ size = 28, textClassName = "text-[19px]" }: { size?: number; textClassName?: string }) {
+export function Logo({ size = 28, textClassName = "text-[1.1875rem]" }: { size?: number; textClassName?: string }) {
   return (
     <div className="flex items-center gap-2.5">
       <LogoMark size={size} />

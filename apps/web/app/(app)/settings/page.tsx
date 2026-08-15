@@ -35,24 +35,28 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row gap-5.5 items-start max-w-[1100px]">
-      <div className="flex-[1.15] flex flex-col gap-5.5 w-full">
-        <h1 className="text-[30px] font-medium tracking-tight">Settings</h1>
-        <ClaudeKeyCard
-          status={status}
-          rawToken={rawToken}
-          visible={visible}
-          busy={busy}
-          onToggleVisible={() => setVisible((v) => !v)}
-          onIssue={handleIssue}
-          onRevoke={handleRevoke}
-        />
-        <ConnectSnippet rawToken={rawToken} />
+    <div className="flex flex-col gap-5.5">
+      <h1 className="text-[1.875rem] font-medium tracking-tight">Settings</h1>
+
+      <div className="flex flex-col lg:flex-row gap-5.5 items-start">
+        <div className="flex-[1.15] w-full">
+          <ClaudeKeyCard
+            status={status}
+            rawToken={rawToken}
+            visible={visible}
+            busy={busy}
+            onToggleVisible={() => setVisible((v) => !v)}
+            onIssue={handleIssue}
+            onRevoke={handleRevoke}
+          />
+        </div>
+
+        <div className="flex-1 w-full">
+          <ConnectSnippet rawToken={rawToken} />
+        </div>
       </div>
 
-      <div className="flex-1 w-full pt-0 lg:pt-19">
-        <KeyScopesList />
-      </div>
+      <KeyScopesList />
     </div>
   );
 }

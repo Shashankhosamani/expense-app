@@ -6,7 +6,7 @@ export const CATEGORY_STYLE: Record<
 > = {
   Food: { icon: "utensils", bg: "#FFE9D6", fg: "#FFB766", bar: "#FFB766" },
   Shopping: { icon: "shopping-cart", bg: "#C2EDDA", fg: "#23935C", bar: "#23935C" },
-  Travel: { icon: "car", bg: "#FAFDFE", fg: "#2C6E8F", bar: "#2C6E8F" },
+  Travel: { icon: "car", bg: "#DCEEF5", fg: "#2C6E8F", bar: "#2C6E8F" },
   Bills: { icon: "receipt", bg: "#FEEAE3", fg: "#F43A09", bar: "#F43A09" },
   Subscriptions: { icon: "tv", bg: "#FEEAE3", fg: "#F43A09", bar: "#F43A09" },
   Entertainment: { icon: "clapperboard", bg: "#EDE4FB", fg: "#7C5CC4", bar: "#7C5CC4" },

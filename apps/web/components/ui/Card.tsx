@@ -17,7 +17,7 @@ export function CardHeader({ className, ...props }: HTMLAttributes<HTMLDivElemen
   return (
     <div
       className={cn(
-        "px-[22px] py-[18px] flex items-center justify-between border-b border-border-3",
+        "px-[1.375rem] py-[1.125rem] flex items-center justify-between border-b border-border-3",
         className
       )}
       {...props}
@@ -26,5 +26,5 @@ export function CardHeader({ className, ...props }: HTMLAttributes<HTMLDivElemen
 }
 
 export function CardBody({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("p-[26px]", className)} {...props} />;
+  return <div className={cn("p-[1.625rem]", className)} {...props} />;
 }

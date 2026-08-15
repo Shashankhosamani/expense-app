@@ -13,9 +13,9 @@ export function BudgetSummaryCard({ summary, budget }: { summary: MonthlySummary
     <Card className="flex-[1.4] p-6.5 flex flex-col gap-5.5">
       <div className="flex items-start justify-between">
         <div className="flex flex-col gap-2">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-ink-3">Spent so far</span>
+          <span className="text-[0.6875rem] font-semibold uppercase tracking-wider text-ink-3">Spent so far</span>
           <div className="flex items-end gap-2.5">
-            <span className="text-[46px] font-medium tracking-tight tabular-nums">
+            <span className="text-[2.875rem] font-medium tracking-tight tabular-nums">
               {summary ? formatINR(summary.total_spent) : "—"}
             </span>
             {budget && <span className="text-base text-ink-4 pb-1">of {formatINR(budget.limit_amount)}</span>}

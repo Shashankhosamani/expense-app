@@ -25,8 +25,8 @@ export default function InsightsPage() {
     <div className="flex flex-col gap-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div className="flex flex-col gap-1">
-          <h1 className="text-[30px] font-medium tracking-tight">Insights</h1>
-          <span className="text-[13px] text-ink-3">
+          <h1 className="text-[1.875rem] font-medium tracking-tight">Insights</h1>
+          <span className="text-[0.8125rem] text-ink-3">
             {insights
               ? `${range}-month average ${formatINR(insights.average_spent)} · under budget ${insights.months_under_budget} of ${insights.months.length} months`
               : "—"}
