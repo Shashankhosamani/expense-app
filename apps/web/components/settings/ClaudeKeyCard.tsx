@@ -74,16 +74,18 @@ export function ClaudeKeyCard({ status, rawToken, visible, busy, onToggleVisible
         </div>
       )}
 
-      <div className="border-t border-dashed border-border-2 pt-5 flex items-center gap-3">
+      <div className="border-t border-dashed border-border-2 pt-5 flex flex-col sm:flex-row sm:items-center gap-3">
         <span className="flex-1 text-xs text-ink-3">Making a new key switches the old one off straight away.</span>
-        <Button variant="danger" disabled={busy || !status?.active} onClick={onRevoke}>
-          <Ban size={15} />
-          Turn Off
-        </Button>
-        <Button variant="primary" disabled={busy} onClick={onIssue}>
-          <RefreshCw size={15} />
-          New Key
-        </Button>
+        <div className="flex gap-3">
+          <Button variant="danger" className="flex-1 sm:flex-none" disabled={busy || !status?.active} onClick={onRevoke}>
+            <Ban size={15} />
+            Turn Off
+          </Button>
+          <Button variant="primary" className="flex-1 sm:flex-none" disabled={busy} onClick={onIssue}>
+            <RefreshCw size={15} />
+            New Key
+          </Button>
+        </div>
       </div>
     </div>
   );

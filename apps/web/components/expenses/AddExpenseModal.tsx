@@ -67,9 +67,9 @@ export function AddExpenseModal() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-20 px-4">
-      <div className="absolute inset-0 bg-navy/40" onClick={close} />
-      <div className="relative w-full max-w-[35rem] bg-surface-raised rounded-2xl border border-border-4 overflow-hidden max-h-[85vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-start justify-center sm:pt-20 sm:px-4">
+      <div className="hidden sm:block absolute inset-0 bg-navy/40" onClick={close} />
+      <div className="relative w-full h-full sm:h-auto sm:max-w-[35rem] bg-surface-raised sm:rounded-2xl sm:border sm:border-border-4 overflow-hidden sm:max-h-[85vh] flex flex-col">
         <div className="px-6 py-5 border-b border-border-3 flex items-start justify-between">
           <div>
             <div className="text-[1.375rem] font-medium text-ink">Add an expense</div>

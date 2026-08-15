@@ -15,6 +15,10 @@ const NAV_ITEMS = [
   { href: "/settings", label: "Settings" },
 ];
 
+// The mobile bottom tab bar already covers Dashboard/Expenses/Review/Insights,
+// so the mobile-only dropdown only needs to surface the two it doesn't.
+const MOBILE_MENU_ITEMS = NAV_ITEMS.filter((item) => item.href === "/budget" || item.href === "/settings");
+
 function NavBadge({ count }: { count: number }) {
   if (count <= 0) return null;
   return (
@@ -51,7 +55,7 @@ export function AppNav({ reviewCount = 0 }: { reviewCount?: number }) {
 
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label="Toggle navigation menu"
+        aria-label="More options"
         aria-expanded={open}
         className="md:hidden flex items-center justify-center w-9 h-9 shrink-0 text-ink-2 cursor-pointer"
       >
@@ -60,7 +64,7 @@ export function AppNav({ reviewCount = 0 }: { reviewCount?: number }) {
 
       {open && (
         <div className="md:hidden absolute inset-x-0 top-16 z-40 bg-surface-raised border-b border-border shadow-lg flex flex-col px-4 sm:px-8 py-2">
-          {NAV_ITEMS.map((item) => {
+          {MOBILE_MENU_ITEMS.map((item) => {
             const active = pathname?.startsWith(item.href);
             return (
               <Link
@@ -73,7 +77,6 @@ export function AppNav({ reviewCount = 0 }: { reviewCount?: number }) {
                 )}
               >
                 {item.label}
-                <NavBadge count={item.href === "/review" ? reviewCount : 0} />
               </Link>
             );
           })}
