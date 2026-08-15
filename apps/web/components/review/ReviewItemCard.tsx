@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { ShieldAlert, ChevronDown, ChevronUp } from "lucide-react";
 import type { ReviewItem } from "@costiq/shared";
 import { Button } from "@/components/ui/Button";
+import { CategoryChipPicker } from "@/components/expenses/CategoryChipPicker";
+import { useCategories } from "@/hooks/useCategories";
 import { formatDateTime, formatINR } from "@/lib/format";
 
 interface ReviewItemCardProps {
@@ -8,11 +11,16 @@ interface ReviewItemCardProps {
   expanded: boolean;
   busy: boolean;
   onToggle: () => void;
-  onApprove: () => void;
+  onApprove: (categoryId?: string) => void;
   onDismiss: () => void;
 }
 
 export function ReviewItemCard({ item, expanded, busy, onToggle, onApprove, onDismiss }: ReviewItemCardProps) {
+  const { categories } = useCategories();
+  const suggested = categories.find((c) => c.name === item.extracted?.suggested_category);
+  const [overrideCategoryId, setOverrideCategoryId] = useState<string | undefined>(undefined);
+  const selectedCategoryId = overrideCategoryId ?? suggested?.id;
+
   return (
     <div className="bg-surface-raised border border-brand-tint-border rounded-xl overflow-hidden">
       <button
@@ -72,6 +80,10 @@ export function ReviewItemCard({ item, expanded, busy, onToggle, onApprove, onDi
                     </div>
                   ))}
               </div>
+              <div className="flex flex-col gap-2.5">
+                <span className="text-[0.625rem] font-semibold uppercase tracking-wider text-ink-4">Category</span>
+                <CategoryChipPicker categories={categories} value={selectedCategoryId} onChange={setOverrideCategoryId} />
+              </div>
             </div>
           </div>
           <div className="px-5.5 py-4 border-t border-border-3 bg-[#F2FAFC] flex flex-col sm:flex-row sm:items-center gap-2.5">
@@ -79,7 +91,7 @@ export function ReviewItemCard({ item, expanded, busy, onToggle, onApprove, onDi
               variant="primary"
               className="order-1 w-full sm:w-auto sm:order-3"
               disabled={busy || !item.extracted?.amount}
-              onClick={onApprove}
+              onClick={() => onApprove(selectedCategoryId)}
             >
               {busy ? "Working…" : "Approve"}
             </Button>

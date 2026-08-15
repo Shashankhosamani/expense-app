@@ -13,10 +13,10 @@ export default function ReviewPage() {
   const expandedId = selectedId === undefined ? (items[0]?.id ?? null) : selectedId;
   const [busyId, setBusyId] = useState<string | null>(null);
 
-  async function handleApprove(id: string) {
+  async function handleApprove(id: string, categoryId?: string) {
     setBusyId(id);
     try {
-      await approve(id);
+      await approve(id, categoryId);
     } finally {
       setBusyId(null);
     }
@@ -59,7 +59,7 @@ export default function ReviewPage() {
           expanded={expandedId === item.id}
           busy={busyId === item.id}
           onToggle={() => setSelectedId(expandedId === item.id ? null : item.id)}
-          onApprove={() => handleApprove(item.id)}
+          onApprove={(categoryId) => handleApprove(item.id, categoryId)}
           onDismiss={() => handleDismiss(item.id)}
         />
       ))}

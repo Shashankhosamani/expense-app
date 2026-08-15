@@ -6,6 +6,7 @@ import { Plus, Search, LogOut } from "lucide-react";
 import { Logo } from "./Logo";
 import { AppNav } from "./AppNav";
 import { MobileTabBar } from "./MobileTabBar";
+import { AccountMenu } from "./AccountMenu";
 import { AddExpenseProvider, useAddExpense } from "./AddExpenseContext";
 import { AddExpenseModal } from "@/components/expenses/AddExpenseModal";
 import { useReviewQueue } from "@/hooks/useReviewQueue";
@@ -23,7 +24,7 @@ function HeaderSearch() {
   }
 
   return (
-    <div className="hidden md:flex items-center gap-2 bg-surface border border-border rounded-lg px-3 py-2 w-[13.75rem] focus-within:border-brand">
+    <div className="hidden md:flex items-center gap-2 bg-surface border border-border rounded-lg px-3 py-2 w-55 focus-within:border-brand">
       <Search size={16} className="text-ink-4 shrink-0" />
       <input
         value={value}
@@ -55,34 +56,60 @@ function Header({ initials }: { initials: string }) {
           <Plus size={16} />
           <span className="hidden sm:inline">Add Expense</span>
         </button>
-        <span className="w-8.5 h-8.5 rounded-full bg-border text-ink-2 flex items-center justify-center text-[0.8125rem] font-medium shrink-0">
+        <span className="hidden md:flex w-8.5 h-8.5 rounded-full bg-border text-ink-2 items-center justify-center text-[0.8125rem] font-medium shrink-0">
           {initials}
         </span>
-        <button onClick={signOut} className="text-ink-3 hover:text-ink cursor-pointer" title="Sign out">
+        <button
+          onClick={signOut}
+          className="hidden md:block text-ink-3 hover:text-ink cursor-pointer"
+          title="Sign out"
+        >
           <LogOut size={17} />
         </button>
+        <div className="md:hidden">
+          <AccountMenu initials={initials} onSignOut={signOut} />
+        </div>
       </div>
     </header>
   );
 }
 
-function Shell({ children, initials }: { children: React.ReactNode; initials: string }) {
+function Shell({
+  children,
+  initials,
+  panel,
+}: {
+  children: React.ReactNode;
+  initials: string;
+  panel?: React.ReactNode;
+}) {
   const { total: reviewCount } = useReviewQueue();
 
   return (
     <div className="min-h-screen flex flex-col bg-page">
       <Header initials={initials} />
-      <main className="flex-1 px-4 sm:px-8 py-6 pb-24 md:pb-6 max-w-[87.5rem] w-full mx-auto">{children}</main>
+      <main className="flex-1 px-4 sm:px-8 py-6 pb-24 md:pb-6 max-w-350 w-full mx-auto">{children}</main>
       <MobileTabBar reviewCount={reviewCount} />
       <AddExpenseModal />
+      {panel}
     </div>
   );
 }
 
-export function AppShell({ children, initials = "?" }: { children: React.ReactNode; initials?: string }) {
+export function AppShell({
+  children,
+  initials = "?",
+  panel,
+}: {
+  children: React.ReactNode;
+  initials?: string;
+  panel?: React.ReactNode;
+}) {
   return (
     <AddExpenseProvider>
-      <Shell initials={initials}>{children}</Shell>
+      <Shell initials={initials} panel={panel}>
+        {children}
+      </Shell>
     </AddExpenseProvider>
   );
 }
