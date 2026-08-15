@@ -9,8 +9,7 @@ function isIconName(name: string): name is IconName {
 
 export function getIcon(name: string): LucideIcon {
   if (!isIconName(name)) return Icons.Circle;
-  const icon = Icons[name];
-  return typeof icon === "function" ? (icon as LucideIcon) : Icons.Circle;
+  return Icons[name] as LucideIcon;
 }
 
 export function pascalCase(kebab: string): string {
