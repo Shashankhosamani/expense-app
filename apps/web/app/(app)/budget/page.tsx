@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { NotifyChannels } from "@costiq/shared";
 import { useBudget } from "@/hooks/useBudget";
+import { useInsights } from "@/hooks/useSummary";
 import { Button } from "@/components/ui/Button";
 import { Field } from "@/components/ui/Field";
 import { CurrencyInput } from "@/components/ui/CurrencyInput";
@@ -17,11 +18,15 @@ const DEFAULT_CHANNELS: NotifyChannels = { push: true, email: false, in_app: tru
 export default function BudgetPage() {
   const month = currentMonth();
   const { budget, isLoading, save } = useBudget(month);
+  const { insights } = useInsights(month, 6);
 
   const [limit, setLimit] = useState("18000");
   const [warningPct, setWarningPct] = useState(90);
   const [channels, setChannels] = useState<NotifyChannels>(DEFAULT_CHANNELS);
   const [saving, setSaving] = useState(false);
+
+  const pastMonths = (insights?.months ?? []).filter((m) => m.month !== month);
+  const maxPastSpend = Math.max(1, ...pastMonths.map((m) => m.total_spent));
 
   useEffect(() => {
     if (!budget) return;
@@ -46,6 +51,12 @@ export default function BudgetPage() {
     } finally {
       setSaving(false);
     }
+  }
+
+  function handleReset() {
+    setLimit(budget ? String(budget.limit_amount) : "18000");
+    setWarningPct(budget?.warning_percentage ?? 90);
+    setChannels(budget?.notify_channels ?? DEFAULT_CHANNELS);
   }
 
   return (
@@ -98,26 +109,49 @@ export default function BudgetPage() {
               </div>
             </div>
           </div>
+
+          <div className="bg-surface-raised border border-border rounded-xl p-6.5 flex flex-col gap-4.5">
+            <div className="flex flex-col gap-1">
+              <span className="text-xl font-medium">Budget alerts</span>
+              <span className="text-xs text-ink-3">
+                Pick how you want to be warned when your spending gets close to the {warningPct}% threshold above.
+              </span>
+            </div>
+            <AlertChannels channels={channels} onChange={setChannels} />
+            <div className="flex items-center gap-3">
+              <span className="flex-1" />
+              <Button variant="outline" onClick={handleReset} disabled={saving}>
+                Reset
+              </Button>
+              <Button variant="primary" onClick={handleSave} disabled={saving}>
+                {saving ? "Saving…" : "Save Budget"}
+              </Button>
+            </div>
+          </div>
         </div>
 
         <div className="flex-1 w-full flex flex-col gap-5.5">
           <BudgetProgressPanel status={budget} />
-        </div>
-      </div>
 
-      <div className="bg-surface-raised border border-border rounded-xl p-6.5 flex flex-col gap-4.5">
-        <div className="flex flex-col gap-1">
-          <span className="text-xl font-medium">Budget alerts</span>
-          <span className="text-xs text-ink-3">
-            Pick how you want to be warned when your spending gets close to the {warningPct}% threshold above.
-          </span>
-        </div>
-        <AlertChannels channels={channels} onChange={setChannels} />
-        <div className="flex items-center gap-3">
-          <span className="flex-1" />
-          <Button variant="primary" onClick={handleSave} disabled={saving}>
-            {saving ? "Saving…" : "Save Budget"}
-          </Button>
+          {pastMonths.length > 0 && (
+            <div className="bg-surface-raised border border-border rounded-xl p-6.5 flex flex-col gap-4.5">
+              <span className="text-xl font-medium">Months before this</span>
+              {pastMonths.map((m) => (
+                <div key={m.month} className="flex flex-col gap-1.5">
+                  <div className="flex items-baseline justify-between">
+                    <span className="text-[0.8125rem] text-ink-2">{m.label}</span>
+                    <span className="text-xs tabular-nums text-ink-3">{formatINR(m.total_spent)}</span>
+                  </div>
+                  <div className="h-1.75 rounded-full bg-border-3 overflow-hidden">
+                    <div
+                      className="h-1.75 rounded-full bg-ink-4"
+                      style={{ width: `${(m.total_spent / maxPastSpend) * 100}%` }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

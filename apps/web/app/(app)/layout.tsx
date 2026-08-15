@@ -12,11 +12,21 @@ function initialsFromEmail(email: string | undefined): string {
     .toUpperCase();
 }
 
-export default async function AppLayout({ children }: { children: React.ReactNode }) {
+export default async function AppLayout({
+  children,
+  panel,
+}: {
+  children: React.ReactNode;
+  panel: React.ReactNode;
+}) {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  return <AppShell initials={initialsFromEmail(user?.email)}>{children}</AppShell>;
+  return (
+    <AppShell initials={initialsFromEmail(user?.email)} panel={panel}>
+      {children}
+    </AppShell>
+  );
 }
