@@ -23,14 +23,16 @@ export function RecentExpensesCard({ transactions }: { transactions: Transaction
           >
             <CategoryIcon categoryName={t.category_name} />
             <span className="flex-1 min-w-0 flex flex-col gap-0.5">
-              <span className="text-sm font-medium">{t.merchant ?? "Unknown"}</span>
+              <span className="text-sm font-medium truncate">{t.merchant ?? "Unknown"}</span>
               <span className="text-[0.6875rem] text-ink-4">
                 {formatDateShort(t.transaction_at)} · {t.bank ?? t.source}
               </span>
             </span>
-            <span className="text-[0.6875rem] uppercase tracking-wide text-ink-3">{t.category_name ?? "Other"}</span>
+            <span className="hidden sm:inline text-[0.6875rem] uppercase tracking-wide text-ink-3">
+              {t.category_name ?? "Other"}
+            </span>
             <span
-              className="w-[8.125rem] text-right text-[0.9375rem] font-medium tabular-nums"
+              className="shrink-0 text-right text-[0.9375rem] font-medium tabular-nums"
               style={{ color: t.type === "credit" ? "var(--color-success)" : "var(--color-ink)" }}
             >
               {t.type === "credit" ? "+" : "−"}

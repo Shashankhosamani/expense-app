@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Plus, Search, LogOut } from "lucide-react";
 import { Logo } from "./Logo";
 import { AppNav } from "./AppNav";
+import { MobileTabBar } from "./MobileTabBar";
 import { AddExpenseProvider, useAddExpense } from "./AddExpenseContext";
 import { AddExpenseModal } from "@/components/expenses/AddExpenseModal";
 import { useReviewQueue } from "@/hooks/useReviewQueue";
@@ -65,14 +66,23 @@ function Header({ initials }: { initials: string }) {
   );
 }
 
+function Shell({ children, initials }: { children: React.ReactNode; initials: string }) {
+  const { total: reviewCount } = useReviewQueue();
+
+  return (
+    <div className="min-h-screen flex flex-col bg-page">
+      <Header initials={initials} />
+      <main className="flex-1 px-4 sm:px-8 py-6 pb-24 md:pb-6 max-w-[87.5rem] w-full mx-auto">{children}</main>
+      <MobileTabBar reviewCount={reviewCount} />
+      <AddExpenseModal />
+    </div>
+  );
+}
+
 export function AppShell({ children, initials = "?" }: { children: React.ReactNode; initials?: string }) {
   return (
     <AddExpenseProvider>
-      <div className="min-h-screen flex flex-col bg-page">
-        <Header initials={initials} />
-        <main className="flex-1 px-4 sm:px-8 py-6 max-w-[87.5rem] w-full mx-auto">{children}</main>
-        <AddExpenseModal />
-      </div>
+      <Shell initials={initials}>{children}</Shell>
     </AddExpenseProvider>
   );
 }

@@ -58,11 +58,11 @@ export default function BudgetPage() {
       <div className="flex flex-col lg:flex-row gap-5.5 items-start">
         <div className="flex-[1.25] flex flex-col gap-5.5 w-full">
           <div className="bg-surface-raised border border-border rounded-xl p-6.5 flex flex-col gap-6">
-            <div className="flex gap-4.5 items-end">
+            <div className="flex flex-col sm:flex-row gap-4.5 sm:items-end">
               <Field label="How much per month" className="flex-1">
                 <CurrencyInput value={limit} onChange={setLimit} emphasized className="py-3.5" />
               </Field>
-              <div className="flex gap-2 pb-1">
+              <div className="flex flex-wrap gap-2 sm:pb-1">
                 {PRESETS.map((p) => (
                   <button
                     key={p}

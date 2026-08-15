@@ -74,16 +74,21 @@ export function ReviewItemCard({ item, expanded, busy, onToggle, onApprove, onDi
               </div>
             </div>
           </div>
-          <div className="px-5.5 py-4 border-t border-border-3 bg-[#F2FAFC] flex flex-wrap items-center gap-2.5">
-            <span className="flex-1 text-xs text-ink-3">
-              Approving adds one expense with exactly the fields above. Nothing else from the message is kept.
-            </span>
-            <Button variant="outline" disabled={busy} onClick={onDismiss}>
-              Not an expense
-            </Button>
-            <Button variant="primary" disabled={busy || !item.extracted?.amount} onClick={onApprove}>
+          <div className="px-5.5 py-4 border-t border-border-3 bg-[#F2FAFC] flex flex-col sm:flex-row sm:items-center gap-2.5">
+            <Button
+              variant="primary"
+              className="order-1 w-full sm:w-auto sm:order-3"
+              disabled={busy || !item.extracted?.amount}
+              onClick={onApprove}
+            >
               {busy ? "Working…" : "Approve"}
             </Button>
+            <Button variant="outline" className="order-2 w-full sm:w-auto" disabled={busy} onClick={onDismiss}>
+              Not an expense
+            </Button>
+            <span className="order-3 sm:order-1 sm:flex-1 text-xs text-ink-3 text-center sm:text-left">
+              Approving adds one expense with exactly the fields above. Nothing else from the message is kept.
+            </span>
           </div>
         </>
       )}
