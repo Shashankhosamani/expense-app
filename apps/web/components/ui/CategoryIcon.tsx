@@ -10,7 +10,7 @@ export function CategoryIcon({ categoryName, size = 18 }: { categoryName: string
 
   return (
     <span
-      className="rounded-[9px] flex items-center justify-center shrink-0"
+      className="rounded-[0.5625rem] flex items-center justify-center shrink-0"
       style={{ background: style.bg, width: boxSize, height: boxSize }}
     >
       {/* eslint-disable-next-line react-hooks/static-components -- see comment above */}

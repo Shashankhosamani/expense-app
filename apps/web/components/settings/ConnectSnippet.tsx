@@ -7,7 +7,7 @@ export function ConnectSnippet({ rawToken }: { rawToken: string | null }) {
           Paste this into your Claude configuration, then ask it to sort your pending expenses.
         </span>
       </div>
-      <pre className="bg-navy-2 rounded-[10px] p-5 text-xs leading-[22px] text-[#C6DDE6] overflow-x-auto whitespace-pre">
+      <pre className="bg-navy-2 rounded-[0.625rem] p-5 text-xs leading-[1.375rem] text-[#C6DDE6] overflow-x-auto whitespace-pre">
         {`{
   "mcpServers": {
     "costiq": {

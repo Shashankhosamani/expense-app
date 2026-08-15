@@ -69,10 +69,10 @@ export function AddExpenseModal() {
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-20 px-4">
       <div className="absolute inset-0 bg-navy/40" onClick={close} />
-      <div className="relative w-full max-w-[560px] bg-surface-raised rounded-2xl border border-border-4 overflow-hidden max-h-[85vh] flex flex-col">
+      <div className="relative w-full max-w-[35rem] bg-surface-raised rounded-2xl border border-border-4 overflow-hidden max-h-[85vh] flex flex-col">
         <div className="px-6 py-5 border-b border-border-3 flex items-start justify-between">
           <div>
-            <div className="text-[22px] font-medium text-ink">Add an expense</div>
+            <div className="text-[1.375rem] font-medium text-ink">Add an expense</div>
             <div className="text-xs text-ink-3 mt-1">For cash and anything your bank did not text you about.</div>
           </div>
           <button onClick={close} className="text-ink-3 hover:text-ink cursor-pointer">
@@ -86,12 +86,12 @@ export function AddExpenseModal() {
               <CurrencyInput value={amount} onChange={setAmount} autoFocus emphasized />
             </Field>
             <Field label="Direction" className="flex-1">
-              <div className="flex border border-border rounded-lg overflow-hidden h-[52px] bg-surface">
+              <div className="flex border border-border rounded-lg overflow-hidden h-[3.25rem] bg-surface">
                 {(["debit", "credit"] as const).map((d) => (
                   <button
                     key={d}
                     onClick={() => setDirection(d)}
-                    className={`flex-1 flex items-center justify-center text-[13px] font-medium cursor-pointer ${
+                    className={`flex-1 flex items-center justify-center text-[0.8125rem] font-medium cursor-pointer ${
                       direction === d ? "bg-navy text-white" : "text-ink-3"
                     }`}
                   >
@@ -150,7 +150,7 @@ export function AddExpenseModal() {
               value={note}
               onChange={(e) => setNote(e.target.value)}
               placeholder="Anything you want to remember about this one"
-              className="bg-surface border border-border rounded-lg px-3.5 py-3 text-sm text-ink outline-none min-h-[60px] resize-none"
+              className="bg-surface border border-border rounded-lg px-3.5 py-3 text-sm text-ink outline-none min-h-[3.75rem] resize-none"
             />
           </Field>
 
@@ -158,7 +158,7 @@ export function AddExpenseModal() {
         </div>
 
         <div className="px-6 py-4 border-t border-border-3 bg-[#F2FAFC] flex items-center gap-3">
-          <span className="flex-1 text-[11px] text-ink-3 leading-snug">
+          <span className="flex-1 text-[0.6875rem] text-ink-3 leading-snug">
             Checked the same way as an expense read from a message.
           </span>
           <Button variant="outline" onClick={close}>

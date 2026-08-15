@@ -8,8 +8,8 @@ export function TopMerchantsCard({ merchants }: { merchants: MonthlySummary["top
       {merchants.map((m, i) => (
         <div key={m.merchant} className="flex items-center gap-3.5 pb-2.5 border-b border-border-3">
           <span className="w-4.5 text-xs text-ink-4">{i + 1}</span>
-          <span className="flex-1 text-[13px]">{m.merchant}</span>
-          <span className="w-23 text-right text-[13px] font-medium tabular-nums">{formatINR(m.amount)}</span>
+          <span className="flex-1 text-[0.8125rem]">{m.merchant}</span>
+          <span className="w-23 text-right text-[0.8125rem] font-medium tabular-nums">{formatINR(m.amount)}</span>
         </div>
       ))}
     </div>

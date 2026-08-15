@@ -27,12 +27,12 @@ export function ReviewItemCard({ item, expanded, busy, onToggle, onApprove, onDi
               {item.extracted?.amount ? ` · ${formatINR(item.extracted.amount)} out` : ""}
             </span>
             {item.suspicious && (
-              <span className="text-[10px] font-semibold tracking-wider text-brand-dark bg-brand-tint border border-brand-tint-border rounded-full px-2 py-1">
+              <span className="text-[0.625rem] font-semibold tracking-wider text-brand-dark bg-brand-tint border border-brand-tint-border rounded-full px-2 py-1">
                 SUSPICIOUS
               </span>
             )}
           </span>
-          <span className="text-[11px] text-ink-4">
+          <span className="text-[0.6875rem] text-ink-4">
             sender {item.sender} · arrived {formatDateTime(item.received_at)}
           </span>
         </span>
@@ -43,14 +43,14 @@ export function ReviewItemCard({ item, expanded, busy, onToggle, onApprove, onDi
         <>
           <div className="p-5.5 flex flex-col md:flex-row gap-6">
             <div className="flex-[1.1] flex flex-col gap-3.5">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-4">
+              <span className="text-[0.625rem] font-semibold uppercase tracking-wider text-ink-4">
                 The message, as it arrived
               </span>
-              <div className="bg-navy-2 rounded-[10px] p-4.5 text-xs leading-[22px] text-[#C6DDE6] whitespace-pre-wrap break-words">
+              <div className="bg-navy-2 rounded-[0.625rem] p-4.5 text-xs leading-[1.375rem] text-[#C6DDE6] whitespace-pre-wrap break-words">
                 {item.raw_message}
               </div>
               <div className="flex flex-col gap-2.5">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-4">Why it is here</span>
+                <span className="text-[0.625rem] font-semibold uppercase tracking-wider text-ink-4">Why it is here</span>
                 {item.hold_reasons.map((r) => (
                   <div key={r} className="flex items-start gap-2.5">
                     <span className="w-1 h-1 rounded-full bg-brand-dark mt-2 shrink-0" />
@@ -60,14 +60,14 @@ export function ReviewItemCard({ item, expanded, busy, onToggle, onApprove, onDi
               </div>
             </div>
             <div className="flex-1 flex flex-col gap-3.5">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-4">
+              <span className="text-[0.625rem] font-semibold uppercase tracking-wider text-ink-4">
                 What was read from it
               </span>
               <div className="flex flex-col">
                 {item.extracted &&
                   Object.entries(item.extracted).map(([k, v]) => (
                     <div key={k} className="flex items-center gap-3.5 py-2.5 border-b border-border-3">
-                      <span className="w-30 text-[11px] text-ink-4">{k.replace(/_/g, " ")}</span>
+                      <span className="w-30 text-[0.6875rem] text-ink-4">{k.replace(/_/g, " ")}</span>
                       <span className="flex-1 text-xs font-medium tabular-nums">{v === null ? "—" : String(v)}</span>
                     </div>
                   ))}

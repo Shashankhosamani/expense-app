@@ -6,8 +6,8 @@ import { formatDateTime } from "@/lib/format";
 function Meta({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-4">{label}</span>
-      <span className="text-[13px] text-ink">{value}</span>
+      <span className="text-[0.625rem] font-semibold uppercase tracking-wider text-ink-4">{label}</span>
+      <span className="text-[0.8125rem] text-ink">{value}</span>
     </div>
   );
 }
@@ -30,13 +30,13 @@ export function ClaudeKeyCard({ status, rawToken, visible, busy, onToggleVisible
       <div className="flex items-start gap-4">
         <div className="flex-1 flex flex-col gap-1.5">
           <span className="text-xl font-medium">Your Claude key</span>
-          <span className="text-[13px] leading-5 text-ink-3 max-w-[440px]">
+          <span className="text-[0.8125rem] leading-5 text-ink-3 max-w-[27.5rem]">
             One key per account. Claude uses it to read your waiting messages and save the expenses it finds —
             nothing outside your own account.
           </span>
         </div>
         <span
-          className={`text-[10px] font-semibold tracking-wider rounded-full px-2.5 py-1.5 border ${
+          className={`text-[0.625rem] font-semibold tracking-wider rounded-full px-2.5 py-1.5 border ${
             status?.active ? "text-success bg-success-tint-2 border-success-tint" : "text-ink-3 bg-border/30 border-border"
           }`}
         >
@@ -47,7 +47,7 @@ export function ClaudeKeyCard({ status, rawToken, visible, busy, onToggleVisible
       {displayToken ? (
         <div className="flex items-center gap-2.5 bg-navy-2 rounded-lg px-3.5 py-3.5">
           <KeyRound size={17} className="text-[#7B96A1]" />
-          <span className="flex-1 text-[13px] text-surface tracking-wide font-mono">
+          <span className="flex-1 text-[0.8125rem] text-surface tracking-wide font-mono">
             {visible || rawToken ? displayToken : "kh_live_•••••••••••••••••••••••••••••"}
           </span>
           {rawToken && (

@@ -17,7 +17,7 @@ export function CategoryChipPicker({ categories, value, onChange }: CategoryChip
           <button
             key={c.id}
             onClick={() => onChange(c.id)}
-            className="text-[13px] rounded-full px-3.5 py-2 border cursor-pointer"
+            className="text-[0.8125rem] rounded-full px-3.5 py-2 border cursor-pointer"
             style={
               selected
                 ? { color: style.fg, background: style.bg, borderColor: style.fg }

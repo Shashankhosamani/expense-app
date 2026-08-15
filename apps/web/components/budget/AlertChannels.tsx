@@ -30,7 +30,7 @@ function AlertChannelRow({
       <Icon size={18} className="text-ink-3" />
       <span className="flex-1 flex flex-col gap-0.5">
         <span className="text-sm text-ink">{label}</span>
-        <span className="text-[11px] text-ink-4">{sub}</span>
+        <span className="text-[0.6875rem] text-ink-4">{sub}</span>
       </span>
       <ToggleSwitch on={on} onChange={onToggle} />
     </div>

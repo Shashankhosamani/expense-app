@@ -14,7 +14,7 @@ interface CategoryBreakdownListProps {
 // category" panel — same list-of-bars shape, just different surrounding chrome.
 export function CategoryBreakdownList({
   items,
-  amountClassName = "text-[13px] font-medium tabular-nums",
+  amountClassName = "text-[0.8125rem] font-medium tabular-nums",
   barHeight = 7,
 }: CategoryBreakdownListProps) {
   if (items.length === 0) {
@@ -28,9 +28,9 @@ export function CategoryBreakdownList({
         return (
           <div key={c.category_name} className="flex flex-col gap-1.5">
             <div className="flex items-baseline gap-2.5">
-              <span className="flex-1 text-[13px] text-ink-2">{c.category_name}</span>
+              <span className="flex-1 text-[0.8125rem] text-ink-2">{c.category_name}</span>
               <span className={cn(amountClassName)}>{formatINR(c.amount)}</span>
-              <span className="w-11 text-right text-[11px] text-ink-4">{c.percent}%</span>
+              <span className="w-11 text-right text-[0.6875rem] text-ink-4">{c.percent}%</span>
             </div>
             <ProgressBar percent={c.percent} color={style.bar} height={barHeight} />
           </div>
