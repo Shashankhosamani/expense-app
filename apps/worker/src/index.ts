@@ -33,6 +33,12 @@ app.route("/api/categories", categoriesRoute);
 
 app.onError((err, c) => {
   console.error(err);
+  const origin = c.req.header("origin");
+  if (origin) {
+    c.header("Access-Control-Allow-Origin", origin);
+    c.header("Access-Control-Allow-Credentials", "true");
+    c.header("Vary", "Origin");
+  }
   return c.json({ error: "internal_error" }, 500);
 });
 
