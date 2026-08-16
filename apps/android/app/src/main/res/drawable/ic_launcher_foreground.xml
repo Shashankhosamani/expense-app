@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Adaptive-icon foreground: a simplified port of the brand mark from the
+  design (Kharcha Screens.dc.html header logo) — a mint progress ring with a
+  vermilion arc segment and a green center dot. The full-fidelity version
+  (exact arc sweep/rotation) is drawn in Compose at ui/components/BrandMark.kt
+  for in-app use; this vector is a close approximation good enough for a
+  launcher icon at small sizes.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- background ring track -->
+    <path
+        android:pathData="M22,54 A32,32 0 1,0 86,54 A32,32 0 1,0 22,54 Z"
+        android:strokeColor="#C2EDDA"
+        android:strokeWidth="12"
+        android:fillColor="#00000000" />
+
+    <!-- vermilion progress arc, ~64% of the ring, rotated to start upper-right -->
+    <path
+        android:pathData="M22,54 A32,32 0 1,0 86,54 A32,32 0 1,0 22,54 Z"
+        android:strokeColor="#F43A09"
+        android:strokeWidth="12"
+        android:fillColor="#00000000"
+        android:trimPathStart="0.18"
+        android:trimPathEnd="0.82" />
+
+    <!-- center dot -->
+    <path
+        android:pathData="M46,54 A8,8 0 1,0 62,54 A8,8 0 1,0 46,54 Z"
+        android:fillColor="#23935C" />
+
+</vector>

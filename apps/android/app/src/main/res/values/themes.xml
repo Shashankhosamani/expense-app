@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- XML theme used only for the window background / splash screen before
+         Compose takes over (androidx.core.splashscreen) — all real theming
+         (colors, typography) lives in ui/theme/Theme.kt. -->
+    <style name="Theme.Costiq" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/ink</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.Costiq.Main</item>
+    </style>
+
+    <style name="Theme.Costiq.Main" parent="android:Theme.Material.Light.NoActionBar" tools:ignore="NewApi">
+        <item name="android:statusBarColor">@color/ink</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+    </style>
+
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Only the handful of colors needed outside Compose (launcher icon,
+         splash screen window background before Compose takes over). The
+         full design-token palette lives in Kotlin: ui/theme/Color.kt. -->
+    <color name="ink">#10222A</color>
+    <color name="ring_mint">#C2EDDA</color>
+    <color name="vermilion">#F43A09</color>
+    <color name="dot_green">#23935C</color>
+</resources>

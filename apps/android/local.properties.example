@@ -1,0 +1,18 @@
+# Copy this file to local.properties (gitignored) and fill in real values.
+# local.properties is never committed — see .gitignore.
+
+# Path to your Android SDK. Android Studio fills this in automatically on
+# first sync; you usually don't need to set it by hand.
+# sdk.dir=C:\\Users\\you\\AppData\\Local\\Android\\Sdk
+
+# Same Supabase project the web dashboard (apps/web) points at — see
+# NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY in
+# apps/web/.env.local. The anon key is public-safe by design (it ships in
+# the web bundle already), not a secret.
+SUPABASE_URL=https://nyfvtdqpasvxtaygzllz.supabase.co
+SUPABASE_ANON_KEY=
+
+# Where the Cloudflare Worker (apps/worker) is reachable from this build.
+# Emulator against a worker running on your host machine (`pnpm worker`):
+API_BASE_URL=http://10.0.2.2:8787
+# Physical device on the same LAN instead: http://<your-machine-lan-ip>:8787
