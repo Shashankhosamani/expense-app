@@ -26,11 +26,11 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
- * One interface per apps/worker/src/routes/*.ts route file, same paths,
- * same query params, same request/response shapes — see
- * apps/worker/src/routes/{transactions,summary,budgets,review,categories}.ts.
- * MCP token management (apps/worker/src/routes/mcpToken.ts) is deliberately
- * omitted: ARCHITECTURE_2.md §16 keeps that screen web-only.
+ * One interface per route file under apps/worker/src/routes/ (transactions,
+ * summary, budgets, review, categories) — same paths, same query params,
+ * same request/response shapes as each. MCP token management
+ * (apps/worker/src/routes/mcpToken.ts) is deliberately omitted:
+ * ARCHITECTURE_2.md §16 keeps that screen web-only.
  */
 interface CostiqApi {
 

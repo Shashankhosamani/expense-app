@@ -14,8 +14,8 @@ import javax.inject.Singleton
  * web dashboard signs into (apps/web/lib/supabase/client.ts), so a Costiq
  * account works on both clients. The worker's `requireUser` middleware
  * (apps/worker/src/auth.ts) only checks `supabase.auth.getUser(token)`, so
- * this session's access token is a valid Bearer token for every /api/*
- * call — no separate device-key flow exists yet.
+ * this session's access token is a valid Bearer token for every /api
+ * endpoint call — no separate device-key flow exists yet.
  */
 @Singleton
 class SupabaseAuthManager @Inject constructor(
