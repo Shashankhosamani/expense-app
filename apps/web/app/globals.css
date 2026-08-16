@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+:root {
+  /* Light-only design. Without this, browsers render native form controls
+     (select, date/range inputs, scrollbars) using the OS/browser's dark
+     theme even though the page itself stays light — e.g. white select text
+     on our still-white background. */
+  color-scheme: light;
+
+  /* Costiq design tokens, ported from Kharcha Screens.dc.html / Kharcha Landing.dc.html */
+  --color-page: #ffffff;
+  --color-surface: #fafdfe;
+  --color-surface-raised: #fbfdfe;
+  --color-surface-white: #ffffff;
+
+  --color-ink: #10222a;
+  --color-ink-2: #33505b;
+  --color-ink-3: #5b7885;
+  --color-ink-4: #63838e;
+
+  --color-border: #cde6ee;
+  --color-border-2: #c2dfe9;
+  --color-border-3: #e0f2f7;
+  --color-border-4: #c6dde6;
+
+  --color-brand: #f43a09;
+  --color-brand-dark: #c22b04;
+  --color-brand-tint: #feeae3;
+  --color-brand-tint-border: #fbd3c6;
+
+  --color-success: #23935c;
+  --color-success-tint: #c2edda;
+  --color-success-tint-2: #e4f7ec;
+
+  --color-warn: #ffb766;
+  --color-warn-tint: #ffe9d6;
+
+  --color-navy: #10222a;
+  --color-navy-2: #0b1a21;
+
+  --font-display: var(--font-manrope), system-ui, sans-serif;
+}
+
+@theme inline {
+  --color-page: var(--color-page);
+  --color-surface: var(--color-surface);
+  --color-surface-raised: var(--color-surface-raised);
+  --color-surface-white: var(--color-surface-white);
+
+  --color-ink: var(--color-ink);
+  --color-ink-2: var(--color-ink-2);
+  --color-ink-3: var(--color-ink-3);
+  --color-ink-4: var(--color-ink-4);
+
+  --color-border: var(--color-border);
+  --color-border-2: var(--color-border-2);
+  --color-border-3: var(--color-border-3);
+  --color-border-4: var(--color-border-4);
+
+  --color-brand: var(--color-brand);
+  --color-brand-dark: var(--color-brand-dark);
+  --color-brand-tint: var(--color-brand-tint);
+  --color-brand-tint-border: var(--color-brand-tint-border);
+
+  --color-success: var(--color-success);
+  --color-success-tint: var(--color-success-tint);
+  --color-success-tint-2: var(--color-success-tint-2);
+
+  --color-warn: var(--color-warn);
+  --color-warn-tint: var(--color-warn-tint);
+
+  --color-navy: var(--color-navy);
+  --color-navy-2: var(--color-navy-2);
+
+  --font-display: var(--font-display);
+}
+
+body {
+  background: var(--color-page);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}

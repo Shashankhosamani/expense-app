@@ -1,0 +1,16 @@
+{
+  "name": "costiq",
+  "private": true,
+  "packageManager": "pnpm@11.21.0",
+  "scripts": {
+    "dev:web": "pnpm --filter @costiq/web dev",
+    "dev:worker": "pnpm --filter @costiq/worker dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "seed": "pnpm --filter @costiq/worker seed"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  }
+}
