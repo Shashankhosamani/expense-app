@@ -12,7 +12,7 @@ export function CurrencyInput({ value, onChange, autoFocus, emphasized, classNam
   return (
     <div
       className={cn(
-        "flex items-center gap-2 border rounded-lg px-3.5 py-3",
+        "flex items-center gap-2 min-w-0 border rounded-lg px-3.5 py-3",
         emphasized ? "bg-white border-brand ring-3 ring-brand/15" : "bg-surface border-border",
         className
       )}
@@ -25,7 +25,7 @@ export function CurrencyInput({ value, onChange, autoFocus, emphasized, classNam
         onChange={(e) => onChange(e.target.value)}
         placeholder="0.00"
         className={cn(
-          "flex-1 bg-transparent outline-none font-medium tabular-nums text-ink",
+          "flex-1 min-w-0 bg-transparent outline-none font-medium tabular-nums text-ink",
           emphasized ? "text-xl" : "text-lg"
         )}
       />

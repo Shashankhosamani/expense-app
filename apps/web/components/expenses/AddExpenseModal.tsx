@@ -82,10 +82,10 @@ export function AddExpenseModal() {
 
         <div className="p-6 flex flex-col gap-5 overflow-y-auto">
           <div className="flex gap-4">
-            <Field label="Amount" className="flex-[1.2]">
+            <Field label="Amount" className="flex-[1.2] min-w-0">
               <CurrencyInput value={amount} onChange={setAmount} autoFocus emphasized />
             </Field>
-            <Field label="Direction" className="flex-1">
+            <Field label="Direction" className="flex-1 min-w-0">
               <div className="flex border border-border rounded-lg overflow-hidden min-h-[3.25rem] bg-surface">
                 {(["debit", "credit"] as const).map((d) => (
                   <button
@@ -119,14 +119,14 @@ export function AddExpenseModal() {
           </Field>
 
           <div className="flex gap-4">
-            <Field label="When" className="flex-1">
-              <div className="flex items-center gap-2.5 bg-surface border border-border rounded-lg px-3.5 py-3">
-                <CalendarClock size={17} className="text-ink-4" />
+            <Field label="When" className="flex-1 min-w-0">
+              <div className="flex items-center gap-2.5 min-w-0 bg-surface border border-border rounded-lg px-3.5 py-3">
+                <CalendarClock size={17} className="text-ink-4 shrink-0" />
                 <input
                   type="datetime-local"
                   value={transactionAt}
                   onChange={(e) => setTransactionAt(e.target.value)}
-                  className="flex-1 bg-transparent outline-none text-sm text-ink"
+                  className="flex-1 min-w-0 bg-transparent outline-none text-sm text-ink"
                 />
               </div>
             </Field>
