@@ -3,23 +3,24 @@ package com.costiq.app.di
 import com.costiq.app.BuildConfig
 import com.costiq.app.data.api.CostiqApi
 import com.costiq.app.data.auth.AuthInterceptor
-import com.costiq.app.data.auth.SupabaseAuthManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+    @OptIn(ExperimentalSerializationApi::class)
     @Provides
     @Singleton
     fun provideJson(): Json = Json {
@@ -30,32 +31,9 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAuthInterceptor(authManager: SupabaseAuthManager): AuthInterceptor =
-        AuthInterceptor(authManager)
-
-    @Provides
-    @Singleton
-    fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient =
-        OkHttpClient.Builder()
-            .addInterceptor(authInterceptor)
-            .apply {
-                if (BuildConfig.DEBUG) {
-                    addInterceptor(
-                        HttpLoggingInterceptor().apply {
-                            // Never log bodies in a financial-data app — headers/URLs only,
-                            // and even those are debug-build-only.
-                            level = HttpLoggingInterceptor.Level.BASIC
-                        }
-                    )
-                }
-            }
-            .build()
-
-    @Provides
-    @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient, json: Json): Retrofit =
         Retrofit.Builder()
-            .baseUrl(BuildConfig.API_BASE_URL)
+            .baseUrl(BuildConfig.API_BASE_URL.let { if (it.endsWith("/")) it else "$it/" })
             .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             .build()
