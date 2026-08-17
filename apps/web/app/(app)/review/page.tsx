@@ -33,9 +33,9 @@ export default function ReviewPage() {
 
   return (
     <div className="flex flex-col gap-4.5">
-      <div className="flex items-end justify-between">
+      <div className="flex items-start justify-between gap-3">
         <div className="flex flex-col gap-1.5 max-w-[45rem]">
-          <h1 className="text-[1.875rem] font-medium tracking-tight">Review</h1>
+          <h1 className="text-[1.5rem] md:text-[1.875rem] font-medium tracking-tight">Review</h1>
           <span className="text-[0.8125rem] leading-5 text-ink-3 text-wrap-pretty">
             Nothing on this page has been added to your expenses. A message waits here when it looks like it is
             trying to give instructions, when the sender isn&apos;t a bank Costiq recognizes, or when a field
@@ -43,7 +43,7 @@ export default function ReviewPage() {
           </span>
         </div>
         {total > 0 && (
-          <span className="text-[0.6875rem] font-semibold tracking-wider text-brand-dark bg-brand-tint border border-brand-tint-border rounded-full px-3 py-2">
+          <span className="shrink-0 whitespace-nowrap text-[0.6875rem] font-semibold tracking-wider text-brand-dark bg-brand-tint border border-brand-tint-border rounded-full px-3 py-2">
             {total} HELD
           </span>
         )}

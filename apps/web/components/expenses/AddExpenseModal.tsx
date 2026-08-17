@@ -72,7 +72,7 @@ export function AddExpenseModal() {
       <div className="relative w-full h-full sm:h-auto sm:max-w-[35rem] bg-surface-raised sm:rounded-2xl sm:border sm:border-border-4 overflow-hidden sm:max-h-[85vh] flex flex-col">
         <div className="px-6 py-5 border-b border-border-3 flex items-start justify-between">
           <div>
-            <div className="text-[1.375rem] font-medium text-ink">Add an expense</div>
+            <div className="text-[1.125rem] md:text-[1.375rem] font-medium text-ink">Add an expense</div>
             <div className="text-xs text-ink-3 mt-1">For cash and anything your bank did not text you about.</div>
           </div>
           <button onClick={close} className="text-ink-3 hover:text-ink cursor-pointer">
@@ -86,12 +86,12 @@ export function AddExpenseModal() {
               <CurrencyInput value={amount} onChange={setAmount} autoFocus emphasized />
             </Field>
             <Field label="Direction" className="flex-1">
-              <div className="flex border border-border rounded-lg overflow-hidden h-[3.25rem] bg-surface">
+              <div className="flex border border-border rounded-lg overflow-hidden min-h-[3.25rem] bg-surface">
                 {(["debit", "credit"] as const).map((d) => (
                   <button
                     key={d}
                     onClick={() => setDirection(d)}
-                    className={`flex-1 flex items-center justify-center text-[0.8125rem] font-medium cursor-pointer ${
+                    className={`flex-1 flex items-center justify-center text-center leading-tight px-1 py-2 text-[0.75rem] sm:text-[0.8125rem] font-medium cursor-pointer ${
                       direction === d ? "bg-navy text-white" : "text-ink-3"
                     }`}
                   >
@@ -130,11 +130,11 @@ export function AddExpenseModal() {
                 />
               </div>
             </Field>
-            <Field label="Paid with" className="flex-1">
+            <Field label="Paid with" className="flex-1 min-w-0">
               <select
                 value={paymentMethod}
                 onChange={(e) => setPaymentMethod(e.target.value)}
-                className="bg-surface border border-border rounded-lg px-3.5 py-3 text-sm text-ink outline-none"
+                className="w-full bg-surface border border-border rounded-lg px-3.5 py-3 text-sm text-ink outline-none"
               >
                 {PAYMENT_METHODS.map((m) => (
                   <option key={m} value={m}>

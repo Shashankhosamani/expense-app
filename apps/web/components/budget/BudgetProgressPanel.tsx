@@ -39,8 +39,8 @@ export function BudgetProgressPanel({ status }: { status: BudgetStatus | null })
     <div className="bg-navy rounded-xl p-6.5 flex flex-col gap-5">
       <span className="text-xl font-medium text-surface">{monthLabel}, so far</span>
       <div className="flex items-end gap-2">
-        <span className="text-[2rem] font-medium text-surface tabular-nums">{formatINR(status.spent)}</span>
-        <span className="text-sm text-[#AFC8D1] pb-1">of {formatINR(status.limit_amount)}</span>
+        <span className="text-[1.5rem] md:text-[2rem] font-medium text-surface tabular-nums">{formatINR(status.spent)}</span>
+        <span className="text-xs md:text-sm text-[#AFC8D1] pb-1">of {formatINR(status.limit_amount)}</span>
       </div>
       <ProgressBar
         percent={status.percent_used}

@@ -60,7 +60,7 @@ function ExpensesPageContent() {
   return (
     <div className="flex flex-col gap-4.5">
       <div className="flex flex-col gap-1">
-        <h1 className="text-[1.875rem] font-medium tracking-tight">Expenses</h1>
+        <h1 className="text-[1.5rem] md:text-[1.875rem] font-medium tracking-tight">Expenses</h1>
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3">

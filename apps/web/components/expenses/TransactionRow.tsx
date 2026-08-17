@@ -11,7 +11,7 @@ export function TransactionRow({ transaction: t }: { transaction: Transaction })
   return (
     <Link
       href={`/expenses/${t.id}`}
-      className="flex flex-wrap md:grid md:grid-cols-[112px_1fr_140px_160px_84px_130px] items-center gap-3 md:gap-4.5 px-5 py-3.5 border-t border-border-3 hover:bg-surface"
+      className="flex md:grid md:grid-cols-[112px_1fr_140px_160px_84px_130px] items-center gap-3 md:gap-4.5 px-5 py-3.5 border-t border-border-3 hover:bg-surface"
     >
       <span className="flex flex-col gap-0.5 text-xs whitespace-nowrap">
         <span className="font-medium">{formatDate(t.transaction_at)}</span>
@@ -38,7 +38,7 @@ export function TransactionRow({ transaction: t }: { transaction: Transaction })
         </Badge>
       </span>
       <span
-        className="w-full md:w-auto text-right text-[0.9375rem] font-medium tabular-nums"
+        className="shrink-0 text-right text-[0.9375rem] font-medium tabular-nums"
         style={{ color: t.type === "credit" ? "var(--color-success)" : "var(--color-ink)" }}
       >
         {t.type === "credit" ? "+" : "−"}

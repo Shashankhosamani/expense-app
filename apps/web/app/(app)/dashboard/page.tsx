@@ -27,7 +27,7 @@ export default function DashboardPage() {
     <div className="flex flex-col gap-5">
       <div className="flex items-end justify-between">
         <div className="flex flex-col gap-1">
-          <h1 className="text-[1.875rem] font-medium tracking-tight">{monthLabel}</h1>
+          <h1 className="text-[1.5rem] md:text-[1.875rem] font-medium tracking-tight">{monthLabel}</h1>
           <span className="text-[0.8125rem] text-ink-3">
             {summary?.expense_count ?? 0} expenses recorded · {summary?.messages_captured ?? 0} messages captured ·{" "}
             {summary?.not_transactions ?? 0} were not transactions

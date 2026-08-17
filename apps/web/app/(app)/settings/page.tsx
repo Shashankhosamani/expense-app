@@ -37,7 +37,7 @@ export default function SettingsPage() {
 
   return (
     <div className="flex flex-col gap-5.5">
-      <h1 className="text-[1.875rem] font-medium tracking-tight">Settings</h1>
+      <h1 className="text-[1.5rem] md:text-[1.875rem] font-medium tracking-tight">Settings</h1>
 
       <div className="flex flex-col lg:flex-row gap-5.5 items-start">
         <div className="flex-[1.15] w-full flex flex-col gap-5.5">

@@ -65,7 +65,7 @@ export function TransactionEditForm({ id, onClose }: { id: string; onClose: () =
       <div className="px-6.5 py-5.5 border-b border-border-3 flex items-start gap-3.5">
         <span className="w-1 h-9.5 rounded-sm bg-brand shrink-0" />
         <div className="flex-1 flex flex-col gap-1">
-          <span className="text-[1.375rem] font-medium">{transaction.merchant ?? "Unknown"}</span>
+          <span className="text-[1.125rem] md:text-[1.375rem] font-medium">{transaction.merchant ?? "Unknown"}</span>
           <span className="text-[0.6875rem] text-ink-4">
             {formatDateTime(transaction.transaction_at)} ·{" "}
             {transaction.source === "sms" ? "read from a message" : "added by hand"}
@@ -78,12 +78,12 @@ export function TransactionEditForm({ id, onClose }: { id: string; onClose: () =
 
       <div className="p-6.5 flex flex-col gap-6 overflow-y-auto">
         <div className="flex gap-4">
-          <Field label="Amount" className="flex-1">
+          <Field label="Amount" className="flex-1 min-w-0">
             <CurrencyInput value={amount} onChange={setAmount} />
           </Field>
           <Field
             label="Category"
-            className="flex-1"
+            className="flex-1 min-w-0"
             tag={
               categoryId !== (transaction.category_id ?? undefined) && (
                 <span className="text-brand-dark normal-case">changed</span>
@@ -93,7 +93,7 @@ export function TransactionEditForm({ id, onClose }: { id: string; onClose: () =
             <select
               value={categoryId ?? ""}
               onChange={(e) => setCategoryId(e.target.value || undefined)}
-              className="bg-white border border-brand rounded-lg px-3.5 py-3.5 text-sm text-ink outline-none ring-3 ring-brand/15"
+              className="w-full bg-white border border-brand rounded-lg px-3.5 py-3.5 text-sm text-ink outline-none ring-3 ring-brand/15"
             >
               <option value="">Uncategorized</option>
               {categories.map((c) => (

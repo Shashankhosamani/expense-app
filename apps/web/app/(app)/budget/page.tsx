@@ -62,7 +62,7 @@ export default function BudgetPage() {
   return (
     <div className="flex flex-col gap-5.5">
       <div className="flex flex-col gap-1.5">
-        <h1 className="text-[1.875rem] font-medium tracking-tight">Budget</h1>
+        <h1 className="text-[1.5rem] md:text-[1.875rem] font-medium tracking-tight">Budget</h1>
         <span className="text-[0.8125rem] text-ink-3">Plain arithmetic. Nothing here is guessed.</span>
       </div>
 

@@ -23,7 +23,7 @@ export function Kpi({ label, value, icon, color, sub }: KpiProps) {
         <Icon size={17} style={{ color }} />
       </div>
       <div className="flex flex-col gap-1">
-        <span className="text-[1.625rem] font-medium tracking-tight tabular-nums truncate">{value}</span>
+        <span className="text-[1.25rem] md:text-[1.625rem] font-medium tracking-tight tabular-nums truncate">{value}</span>
         <span className="text-xs text-ink-3">{sub}</span>
       </div>
     </Card>

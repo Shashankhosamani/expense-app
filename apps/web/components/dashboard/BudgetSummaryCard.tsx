@@ -15,10 +15,12 @@ export function BudgetSummaryCard({ summary, budget }: { summary: MonthlySummary
         <div className="flex flex-col gap-2">
           <span className="text-[0.6875rem] font-semibold uppercase tracking-wider text-ink-3">Spent so far</span>
           <div className="flex items-end gap-2.5">
-            <span className="text-[2.875rem] font-medium tracking-tight tabular-nums">
+            <span className="text-[2rem] md:text-[2.875rem] font-medium tracking-tight tabular-nums">
               {summary ? formatINR(summary.total_spent) : "—"}
             </span>
-            {budget && <span className="text-base text-ink-4 pb-1">of {formatINR(budget.limit_amount)}</span>}
+            {budget && (
+              <span className="text-[0.8125rem] md:text-base text-ink-4 pb-1">of {formatINR(budget.limit_amount)}</span>
+            )}
           </div>
         </div>
         {vsLastMonth !== null && (
@@ -58,7 +60,7 @@ export function BudgetSummaryCard({ summary, budget }: { summary: MonthlySummary
       )}
 
       {budget && (
-        <div className="border-t border-dashed border-border-2 pt-4.5 flex gap-9">
+        <div className="border-t border-dashed border-border-2 pt-4.5 flex flex-wrap gap-x-9 gap-y-3">
           <Stat
             label="Remaining"
             value={formatINR(budget.remaining)}
