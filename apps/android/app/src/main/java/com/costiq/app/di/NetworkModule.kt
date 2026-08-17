@@ -3,6 +3,7 @@ package com.costiq.app.di
 import com.costiq.app.BuildConfig
 import com.costiq.app.data.api.CostiqApi
 import com.costiq.app.data.auth.AuthInterceptor
+import com.costiq.app.data.auth.SupabaseAuthManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,6 +29,29 @@ object NetworkModule {
         explicitNulls = false
         coerceInputValues = true
     }
+
+    @Provides
+    @Singleton
+    fun provideAuthInterceptor(authManager: SupabaseAuthManager): AuthInterceptor =
+        AuthInterceptor(authManager)
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
+            .apply {
+                if (BuildConfig.DEBUG) {
+                    addInterceptor(
+                        HttpLoggingInterceptor().apply {
+                            // Never log bodies in a financial-data app — headers/URLs only,
+                            // and even those are debug-build-only.
+                            level = HttpLoggingInterceptor.Level.BASIC
+                        }
+                    )
+                }
+            }
+            .build()
 
     @Provides
     @Singleton
