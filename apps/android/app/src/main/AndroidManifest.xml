@@ -31,6 +31,23 @@
             </intent-filter>
         </activity>
 
+        <!-- Disable WorkManager's default auto-init ContentProvider so it
+             doesn't initialize WorkManager with a plain reflection-based
+             factory before CostiqApplication.onCreate() wires up
+             HiltWorkerFactory (Configuration.Provider) — otherwise every
+             @HiltWorker permanently falls back to no-arg reflection and
+             fails with NoSuchMethodException. -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
+
         <!-- High priority so Costiq's Stage-0 classifier sees the message
              promptly; it never aborts the broadcast, so other SMS apps are
              unaffected (§7 — Costiq only reads and classifies, never blocks). -->
