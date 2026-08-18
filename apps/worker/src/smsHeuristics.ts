@@ -15,9 +15,11 @@ const INSTRUCTION_PATTERNS = [
   /reveal (your|the) (prompt|instructions?|system)/i,
 ];
 
-// §7 step 3's shortcode shape: DLT-registered senders are either a plain
-// 6-char alphanumeric code (e.g. "HDFCBK") or a "XX-XXXXXX" prefixed form.
-const SHORTCODE_SHAPE = /^([A-Z]{2}-)?[A-Z0-9]{6}$/;
+// §7 step 3's shortcode shape: DLT-registered senders are a plain 6-char
+// alphanumeric code (e.g. "HDFCBK"), a legacy "XX-XXXXXX" prefixed form, or
+// the current 3-segment form with a trailing category suffix — T/P/S/G for
+// Transactional/Promotional/Service/Government — e.g. "AD-HDFCBK-S".
+const SHORTCODE_SHAPE = /^([A-Z]{2}-)?[A-Z0-9]{2,6}(-[A-Z])?$/;
 
 export interface SuspicionResult {
   suspicious: boolean;
