@@ -25,12 +25,29 @@ class AppPreferences @Inject constructor(@ApplicationContext private val context
 
     private val smsOnboardingSeenKey = booleanPreferencesKey("sms_onboarding_seen")
     private val budgetAlertNotifiedMonthKey = stringPreferencesKey("budget_alert_notified_month")
+    private val smsCaptureEnabledKey = booleanPreferencesKey("sms_capture_enabled")
 
     val hasSeenSmsOnboarding: Flow<Boolean> =
         context.dataStore.data.map { it[smsOnboardingSeenKey] ?: false }
 
     suspend fun markSmsOnboardingSeen() {
         context.dataStore.edit { it[smsOnboardingSeenKey] = true }
+    }
+
+    /**
+     * The Settings-screen kill switch (design copy: "You can turn this off
+     * anytime — new messages stop being read"). Independent of the OS
+     * RECEIVE_SMS/READ_SMS permission grant: this flag can be off even when
+     * permission is granted, and SmsReceiver checks it before doing
+     * anything with an incoming message. Defaults on so behavior matches
+     * "always capture while granted" for anyone who onboarded before this
+     * setting existed.
+     */
+    val smsCaptureEnabled: Flow<Boolean> =
+        context.dataStore.data.map { it[smsCaptureEnabledKey] ?: true }
+
+    suspend fun setSmsCaptureEnabled(enabled: Boolean) {
+        context.dataStore.edit { it[smsCaptureEnabledKey] = enabled }
     }
 
     /** Which month (YYYY-MM) the budget-threshold notification last fired for — at most one alert per month. */

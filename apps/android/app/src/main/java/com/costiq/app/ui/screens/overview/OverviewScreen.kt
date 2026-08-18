@@ -22,6 +22,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -59,12 +60,13 @@ fun OverviewScreen(
     onOpenReview: () -> Unit,
     onOpenBudget: () -> Unit,
     onOpenExpenses: () -> Unit,
+    onOpenSettings: () -> Unit,
 ) {
     val viewModel: OverviewViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsState()
 
     Column(Modifier.fillMaxSize().background(Paper)) {
-        Header(monthLabel = monthDisplayLabel(state.month), expenseCount = state.summary?.expenseCount ?: 0)
+        Header(monthLabel = monthDisplayLabel(state.month), expenseCount = state.summary?.expenseCount ?: 0, onOpenSettings = onOpenSettings)
 
         when {
             state.isLoading -> LoadingState()
@@ -75,7 +77,7 @@ fun OverviewScreen(
 }
 
 @Composable
-private fun Header(monthLabel: String, expenseCount: Int) {
+private fun Header(monthLabel: String, expenseCount: Int, onOpenSettings: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -98,6 +100,15 @@ private fun Header(monthLabel: String, expenseCount: Int) {
                 Icons.Outlined.Notifications,
                 contentDescription = "Notifications",
                 tint = CostiqTheme.extendedColors.textMuted,
+            )
+        }
+        Spacer(Modifier.width(14.dp))
+        Box {
+            Icon(
+                Icons.Outlined.Settings,
+                contentDescription = "Settings",
+                tint = CostiqTheme.extendedColors.textMuted,
+                modifier = Modifier.clickable(onClick = onOpenSettings),
             )
         }
     }

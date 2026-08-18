@@ -21,6 +21,7 @@ import com.costiq.app.ui.screens.expenses.ExpensesScreen
 import com.costiq.app.ui.screens.insights.InsightsScreen
 import com.costiq.app.ui.screens.overview.OverviewScreen
 import com.costiq.app.ui.screens.review.ReviewScreen
+import com.costiq.app.ui.screens.settings.SettingsScreen
 import com.costiq.app.ui.screens.signin.SignInScreen
 import com.costiq.app.ui.screens.smsonboarding.SmsPermissionScreen
 import com.costiq.app.ui.theme.Paper
@@ -80,6 +81,7 @@ private fun MainShell() {
                     onOpenReview = { navController.navigate(Routes.REVIEW) },
                     onOpenBudget = { navController.navigate(Routes.BUDGET) },
                     onOpenExpenses = { navController.navigate(Routes.EXPENSES) },
+                    onOpenSettings = { navController.navigate(Routes.SETTINGS) },
                 )
             }
             composable(Routes.EXPENSES) { ExpensesScreen() }
@@ -90,6 +92,9 @@ private fun MainShell() {
             }
             composable(Routes.BUDGET) {
                 BudgetScreen(onBack = { navController.popBackStack() })
+            }
+            composable(Routes.SETTINGS) {
+                SettingsScreen(onBack = { navController.popBackStack() })
             }
         }
     }

@@ -15,7 +15,7 @@ function randomToken(): string {
   return `kh_live_${hex}`;
 }
 
-function sha256Hex(input: string): Promise<string> {
+export function sha256Hex(input: string): Promise<string> {
   const data = new TextEncoder().encode(input);
   return crypto.subtle
     .digest("SHA-256", data)

@@ -24,13 +24,13 @@ session JWT, `apps/worker/src/auth.ts`'s `requireUser`):
 - Overview, Expenses, Review, Add-by-hand, Budget, Insights — all hit the
   actual `apps/worker` REST routes.
 
-**Not live yet:** `POST /api/sms` doesn't exist on the worker
-(`apps/worker/src/index.ts` marks ingestion "deferred"). The on-device
-pieces are fully built regardless — `data/sms/SmsClassifier.kt` (Stage 0
-regex classifier, unit-tested in `app/src/test/`), the Room upload queue,
-`SmsReceiver`, and `SmsUploadWorker` — but the final upload call will 404
-until that endpoint ships. Nothing else depends on it; every other screen
-works standalone.
+SMS ingestion is now live too — `data/sms/SmsClassifier.kt` (Stage 0 regex
+classifier, unit-tested in `app/src/test/`), the Room upload queue,
+`SmsReceiver`, and `SmsUploadWorker` upload to the real
+`apps/worker/src/routes/sms.ts` endpoint. Parsing pending SMS into
+transactions happens separately, via a connected MCP client
+(`apps/worker/src/routes/mcp.ts`) calling `get_pending_sms`/
+`save_transaction` — the worker itself never calls an LLM.
 
 ## Known simplifications
 

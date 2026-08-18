@@ -23,13 +23,9 @@ import java.util.concurrent.TimeUnit
 
 /**
  * Uploads one queued SMS (already Stage-0-classified — see SmsReceiver) to
- * POST /api/sms. That endpoint doesn't exist on the worker yet
- * (apps/worker/src/index.ts marks ingestion "deferred") — until it ships,
- * every attempt fails with a 404, which this worker treats as a permanent
- * failure rather than retrying forever. No code changes should be needed
- * here once the endpoint lands; only CostiqApi.submitSms's actual contract
- * may need reconciling against whatever the real response shape turns out
- * to be (see SmsIngestDto.kt).
+ * POST /api/sms (apps/worker/src/routes/sms.ts). A 5xx or network failure
+ * is treated as transient and retried; a 4xx (e.g. rate-limited) is
+ * permanent for this item.
  */
 @HiltWorker
 class SmsUploadWorker @AssistedInject constructor(

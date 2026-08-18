@@ -5,9 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.provider.Telephony
 import androidx.work.WorkManager
+import com.costiq.app.data.prefs.AppPreferences
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.time.Instant
 import javax.inject.Inject
@@ -27,6 +29,7 @@ import javax.inject.Inject
 class SmsReceiver : BroadcastReceiver() {
 
     @Inject lateinit var pendingSmsDao: PendingSmsDao
+    @Inject lateinit var appPreferences: AppPreferences
 
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action != Telephony.Sms.Intents.SMS_RECEIVED_ACTION) return
@@ -41,12 +44,17 @@ class SmsReceiver : BroadcastReceiver() {
         val body = messages.joinToString(separator = "") { it.messageBody ?: "" }
         val receivedAt = Instant.ofEpochMilli(messages.first().timestampMillis).toString()
 
-        val result = SmsClassifier.classify(sender, body)
-        if (result.classification == Classification.DISCARD) return
-
         val pendingResult = goAsync()
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                // Settings-screen kill switch — checked before classification even
+                // runs, so "new messages stop being read" is literally true, not
+                // just "stop being uploaded".
+                if (!appPreferences.smsCaptureEnabled.first()) return@launch
+
+                val result = SmsClassifier.classify(sender, body)
+                if (result.classification == Classification.DISCARD) return@launch
+
                 val entity = PendingSmsEntity(
                     sender = sender,
                     rawMessage = body,

@@ -1,6 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { ReviewItem, ReviewListQuery, ReviewListResponse, Transaction } from "@costiq/shared";
 import type { Env } from "../env";
+import { deriveUserKey } from "../smsCrypto";
 import { createManualTransaction } from "./transactions";
 
 export class IncompleteExtractionError extends Error {
@@ -29,13 +30,14 @@ interface SmsMessageExtractedRow {
 // review_queue() has no built-in offset/limit (it's a small, per-user result
 // set by design — see ARCHITECTURE_2.md scale target), so pagination is
 // applied in-process after the RPC call rather than pushed into SQL.
-export function listReviewQueue(
+export async function listReviewQueue(
   db: SupabaseClient,
   userId: string,
   env: Env,
   query: ReviewListQuery
 ): Promise<ReviewListResponse> {
-  return Promise.resolve(db.rpc("review_queue", { p_user_id: userId, p_key: env.SMS_DEMO_DECRYPT_KEY })).then(
+  const key = await deriveUserKey(env.SMS_MASTER_KEY, userId);
+  return Promise.resolve(db.rpc("review_queue", { p_user_id: userId, p_key: key })).then(
     ({ data, error }) => {
       if (error) throw error;
 

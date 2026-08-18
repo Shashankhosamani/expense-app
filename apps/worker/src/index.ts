@@ -8,6 +8,8 @@ import { budgetsRoute } from "./routes/budgets";
 import { reviewRoute } from "./routes/review";
 import { mcpTokenRoute } from "./routes/mcpToken";
 import { categoriesRoute } from "./routes/categories";
+import { smsRoute } from "./routes/sms";
+import { mcpRoute } from "./routes/mcp";
 
 const app = new Hono<{ Bindings: Env; Variables: { userId: string } }>();
 
@@ -21,8 +23,9 @@ app.use(
 
 app.get("/health", (c) => c.json({ ok: true }));
 
-// Data group, ARCHITECTURE_2.md §15. Ingestion (POST /api/sms) and the MCP
-// tool group are deferred — see the implementation plan.
+// Data + ingestion group, ARCHITECTURE_2.md §15 — Supabase session JWT,
+// same as the dashboard. The MCP tool group (below) is separate: Claude
+// authenticates with profiles.mcp_token_hash, not a Supabase session.
 app.use("/api/*", requireUser);
 app.route("/api/transactions", transactionsRoute);
 app.route("/api/summary", summaryRoute);
@@ -30,6 +33,11 @@ app.route("/api/budgets", budgetsRoute);
 app.route("/api/review", reviewRoute);
 app.route("/api/mcp-token", mcpTokenRoute);
 app.route("/api/categories", categoriesRoute);
+app.route("/api/sms", smsRoute);
+
+// MCP (Claude → Worker), ARCHITECTURE_2.md §8/§15. Bearer-token-gated inside
+// mcpRoute itself, not by the /api/* requireUser middleware above.
+app.route("/mcp", mcpRoute);
 
 app.onError((err, c) => {
   console.error(err);

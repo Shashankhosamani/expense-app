@@ -122,7 +122,7 @@ interface CostiqApi {
         @Query("limit") limit: Int = 100,
     ): CategoryListResponse
 
-    // ---- SMS ingestion — NOT YET LIVE, see SmsIngestDto.kt ----
+    // ---- SMS ingestion (apps/worker/src/routes/sms.ts) ----
 
     @POST("/api/sms")
     suspend fun submitSms(@Body body: SmsIngestInput): SmsIngestResponse

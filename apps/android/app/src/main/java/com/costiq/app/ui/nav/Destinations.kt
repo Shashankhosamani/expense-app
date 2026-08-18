@@ -10,6 +10,7 @@ object Routes {
     const val ADD_EXPENSE = "add_expense" // M4
     const val BUDGET = "budget" // M5
     const val INSIGHTS = "insights" // M6
+    const val SETTINGS = "settings"
 }
 
 /** Routes that show the bottom navigation bar (the design's tabs() set, minus the Add action item). */
