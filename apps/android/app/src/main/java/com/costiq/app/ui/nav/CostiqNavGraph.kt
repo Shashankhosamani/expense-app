@@ -74,7 +74,7 @@ private fun MainShell() {
         NavHost(
             navController = navController,
             startDestination = Routes.OVERVIEW,
-            modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding()),
+            modifier = Modifier.padding(innerPadding),
         ) {
             composable(Routes.OVERVIEW) {
                 OverviewScreen(
