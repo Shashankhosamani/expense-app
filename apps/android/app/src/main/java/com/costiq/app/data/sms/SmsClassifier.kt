@@ -37,8 +37,15 @@ object SmsClassifier {
         RegexOption.IGNORE_CASE,
     )
 
-    // Step 3 — sender shape: DLT-registered shortcodes, e.g. "HDFCBK", "VM-HDFCBK", "AD-VMPAY".
-    private val shortcodeSenderPattern = Regex("^([A-Z]{2}-[A-Z0-9]{6}|[A-Z0-9]{6})$")
+    // Step 3 — sender shape: DLT-registered shortcodes. Covers the bare 6-char
+    // form ("HDFCBK"), the legacy 2-segment form ("VM-HDFCBK"), and the
+    // current 3-segment form with a trailing category suffix — T/P/S/G for
+    // Transactional/Promotional/Service/Government — e.g. "AD-HDFCBK-S".
+    private val shortcodeSenderPattern = Regex(
+        "^[A-Z0-9]{6}$" +
+            "|^[A-Z]{2}-[A-Z0-9]{2,6}$" +
+            "|^[A-Z]{2}-[A-Z0-9]{2,6}-[A-Z]$"
+    )
 
     // Step 4/5 — currency markers, tolerant of punctuation/spacing variants banks actually use (Rs., Rs:, RS , rs.).
     private val currencyPattern = Regex("rs\\.?\\s?\\d|inr\\s?\\d|₹\\s?\\d|rs:\\d", RegexOption.IGNORE_CASE)
