@@ -22,7 +22,9 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -66,7 +68,13 @@ fun OverviewScreen(
     val state by viewModel.uiState.collectAsState()
 
     Column(Modifier.fillMaxSize().background(Paper)) {
-        Header(monthLabel = monthDisplayLabel(state.month), expenseCount = state.summary?.expenseCount ?: 0, onOpenSettings = onOpenSettings)
+        Header(
+            monthLabel = monthDisplayLabel(state.month),
+            expenseCount = state.summary?.expenseCount ?: 0,
+            isLoading = state.isLoading,
+            onRefresh = viewModel::load,
+            onOpenSettings = onOpenSettings,
+        )
 
         when {
             state.isLoading -> LoadingState()
@@ -77,7 +85,13 @@ fun OverviewScreen(
 }
 
 @Composable
-private fun Header(monthLabel: String, expenseCount: Int, onOpenSettings: () -> Unit) {
+private fun Header(
+    monthLabel: String,
+    expenseCount: Int,
+    isLoading: Boolean,
+    onRefresh: () -> Unit,
+    onOpenSettings: () -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -95,6 +109,23 @@ private fun Header(monthLabel: String, expenseCount: Int, onOpenSettings: () -> 
                 color = CostiqTheme.extendedColors.textFaint,
             )
         }
+        Box(modifier = Modifier.size(24.dp), contentAlignment = Alignment.Center) {
+            if (isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(18.dp),
+                    strokeWidth = 2.dp,
+                    color = CostiqTheme.extendedColors.textMuted,
+                )
+            } else {
+                Icon(
+                    Icons.Outlined.Refresh,
+                    contentDescription = "Refresh",
+                    tint = CostiqTheme.extendedColors.textMuted,
+                    modifier = Modifier.clickable(onClick = onRefresh),
+                )
+            }
+        }
+        Spacer(Modifier.width(14.dp))
         Box {
             Icon(
                 Icons.Outlined.Notifications,
