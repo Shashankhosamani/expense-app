@@ -38,6 +38,19 @@ class SupabaseAuthManager @Inject constructor(
     }
 
     /**
+     * Suspends until the Auth plugin has finished restoring (or failing to
+     * restore) the persisted session — resolves to Authenticated,
+     * NotAuthenticated, or RefreshError, never hangs indefinitely. Needed
+     * before any background-triggered request (e.g. a WorkManager job
+     * started by SmsReceiver waking a cold process): without this,
+     * currentAccessTokenOrNull() can read null before storage has loaded,
+     * even though the user is signed in.
+     */
+    suspend fun awaitInitialization() {
+        auth.awaitInitialization()
+    }
+
+    /**
      * Current access token, if any — supabase-kt's Auth plugin keeps this
      * refreshed in the background (alwaysAutoRefresh, on by default), so this
      * is a cheap, non-blocking read suitable for an OkHttp interceptor.
