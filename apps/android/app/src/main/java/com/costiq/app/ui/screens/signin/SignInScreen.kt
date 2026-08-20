@@ -1,5 +1,6 @@
 package com.costiq.app.ui.screens.signin
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -41,9 +42,11 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.costiq.app.ui.components.BrandMark
+import com.costiq.app.ui.components.GoogleLogo
 import com.costiq.app.ui.components.iconFor
 import com.costiq.app.ui.theme.DarkAccentMuted
 import com.costiq.app.ui.theme.DarkInputBg
@@ -60,6 +63,7 @@ import com.costiq.app.ui.theme.Vermilion
 fun SignInScreen(onSignedIn: () -> Unit) {
     val viewModel: SignInViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsState()
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -151,6 +155,37 @@ fun SignInScreen(onSignedIn: () -> Unit) {
             colors = ButtonDefaults.buttonColors(containerColor = Vermilion, contentColor = Color.White),
         ) {
             Text(if (state.isLoading) "Signing in…" else "Sign In", style = MaterialTheme.typography.labelLarge)
+        }
+
+        Spacer(Modifier.height(20.dp))
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(Modifier.weight(1f).height(1.dp).background(DarkInputBorder))
+            Text(
+                "or",
+                style = MaterialTheme.typography.bodySmall,
+                color = DarkTextMuted,
+                modifier = Modifier.padding(horizontal = 12.dp),
+            )
+            Box(Modifier.weight(1f).height(1.dp).background(DarkInputBorder))
+        }
+
+        Spacer(Modifier.height(20.dp))
+
+        Button(
+            onClick = { viewModel.signInWithGoogle(context) },
+            enabled = !state.isGoogleLoading,
+            modifier = Modifier.fillMaxWidth().height(50.dp),
+            shape = RoundedCornerShape(8.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = Ink),
+            border = BorderStroke(1.dp, DarkInputBorder),
+        ) {
+            GoogleLogo(size = 17.dp)
+            Spacer(Modifier.width(10.dp))
+            Text(
+                if (state.isGoogleLoading) "Signing in…" else "Continue with Google",
+                style = MaterialTheme.typography.labelLarge,
+            )
         }
 
         Spacer(Modifier.height(24.dp))

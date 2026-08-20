@@ -43,6 +43,15 @@ android {
             "\"${localProp("SUPABASE_URL", "https://nyfvtdqpasvxtaygzllz.supabase.co")}\""
         )
         buildConfigField("String", "SUPABASE_ANON_KEY", "\"${localProp("SUPABASE_ANON_KEY", "")}\"")
+
+        // OAuth Web Client ID from the Google Cloud project backing Supabase's
+        // Google provider — public-safe (it's the audience of the ID token,
+        // not a secret), same one apps/web's Supabase Google provider uses.
+        buildConfigField(
+            "String",
+            "GOOGLE_WEB_CLIENT_ID",
+            "\"${localProp("GOOGLE_WEB_CLIENT_ID", "1020258442575-l6o3kndj7iagrkbu12e4esb9sjnnijat.apps.googleusercontent.com")}\""
+        )
     }
 
     buildTypes {
@@ -85,6 +94,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.splashscreen)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.google.id)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
