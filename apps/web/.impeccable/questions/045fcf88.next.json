@@ -1,0 +1,137 @@
+{
+  "title": "Choose the landing page structure — round 2 (safer)",
+  "question": "Fresh hand, steered safer per your re-roll. Visual system still fixed (navy / vermilion / mint, Manrope).",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "The Long Read",
+      "kicker": "THE ROLL",
+      "lineage": "long-form editorial",
+      "thesis": "No card grids — the page reads as one continuous editorial narrative, headline-led, built for a visitor who wants to be convinced by argument, not scanned by a stranger.",
+      "palette": ["#10222A", "#F43A09", "#23935C", "#FAFDFE"],
+      "materials": ["Manrope type", "generous line-length column", "inline product shots"],
+      "viewport": "A single centered text column, inline product shots breaking the flow at moments of proof, no repeating card shells; typographic rhythm alone creates hierarchy.",
+      "risk": "Loses the scanability a first-time, skeptical fintech visitor often wants; a long unbroken column can feel like reading, not deciding.",
+      "raised": [
+        { "from": "challenger-silkscreen", "raise": "Every parsed-entry example shown is a real, distinct variation (different merchant, amount, category) — never uniform mock rows repeated for tidiness." },
+        { "from": "challenger-ebru", "raise": "New entries visibly displace what's above them as they arrive — nothing sits static once it lands." },
+        { "from": "challenger-tensegrity", "raise": "Every stat and total carries an exact value pinned to it — no rounded or vague claims." },
+        { "from": "challenger-drawcord", "raise": "\"Connect your phone\" is the one action that visibly transforms the whole page from scattered to organized — dramatize that as a single motion, not a static before/after graphic." }
+      ],
+      "wireframe": {
+        "cols": 12, "rows": 12,
+        "regions": [
+          { "label": "headline + opening line", "x": 1, "y": 0, "w": 10, "h": 2, "accent": true },
+          { "label": "narrative section 1 (mechanism)", "x": 1, "y": 2, "w": 10, "h": 2 },
+          { "label": "inline product shot", "x": 2, "y": 4, "w": 8, "h": 2 },
+          { "label": "narrative section 2 (privacy/Claude)", "x": 1, "y": 6, "w": 10, "h": 2 },
+          { "label": "narrative section 3 (proof/pricing)", "x": 1, "y": 8, "w": 10, "h": 2 },
+          { "label": "closing CTA", "x": 1, "y": 10, "w": 10, "h": 2, "accent": true }
+        ]
+      }
+    },
+    {
+      "id": "grounded-4",
+      "label": "The Comparison",
+      "lineage": "comparison table",
+      "thesis": "Costiq's case is made by contrast: a comparison table (Costiq / spreadsheet / manual apps) sits where a feature grid usually goes.",
+      "palette": ["#10222A", "#F43A09", "#23935C", "#FAFDFE"],
+      "materials": ["Manrope type", "table/grid", "check/x marks"],
+      "viewport": "Hero as usual, then an early comparison table (manual entry, categorization, budgets, review, cross-device) scored across three columns, before deeper feature explanation.",
+      "risk": "Comparison tables can look defensive/combative if the other columns aren't handled fairly.",
+      "wireframe": {
+        "cols": 12, "rows": 12,
+        "regions": [
+          { "label": "hero", "x": 0, "y": 0, "w": 12, "h": 3, "accent": true },
+          { "label": "comparison table (3 columns)", "x": 0, "y": 3, "w": 12, "h": 3, "accent": true },
+          { "label": "how it works", "x": 0, "y": 6, "w": 12, "h": 2 },
+          { "label": "pricing", "x": 0, "y": 8, "w": 12, "h": 2 },
+          { "label": "testimonials + FAQ + CTA", "x": 0, "y": 10, "w": 12, "h": 2 }
+        ]
+      }
+    },
+    {
+      "id": "grounded-6b",
+      "label": "The Persona Switch",
+      "lineage": "persona-tabbed",
+      "thesis": "A toggle near the top lets a visitor pick who they are, reflowing proof and copy beneath to match before converging on one CTA.",
+      "palette": ["#10222A", "#F43A09", "#23935C", "#FAFDFE"],
+      "materials": ["Manrope type", "segmented control"],
+      "viewport": "Hero with a 2-3 way segmented control (e.g. salaried / freelancer / household); sections below swap emphasis per selection; pricing/CTA stay constant.",
+      "risk": "No confirmed distinct personas in product truth — this invents segmentation the product hasn't validated, and the wrong personas could mis-target the copy.",
+      "wireframe": {
+        "cols": 12, "rows": 12,
+        "regions": [
+          { "label": "hero + persona toggle", "x": 0, "y": 0, "w": 12, "h": 3, "accent": true },
+          { "label": "persona-matched proof panel", "x": 0, "y": 3, "w": 12, "h": 3 },
+          { "label": "features", "x": 0, "y": 6, "w": 12, "h": 2 },
+          { "label": "pricing (constant)", "x": 0, "y": 8, "w": 12, "h": 2 },
+          { "label": "testimonials + FAQ + CTA", "x": 0, "y": 10, "w": 12, "h": 2 }
+        ]
+      }
+    },
+    {
+      "id": "challenger-bazaar",
+      "label": "The Paired Spread",
+      "verdict": "wins",
+      "lineage": "Harper's Bazaar magazine spread (Brodovitch)",
+      "thesis": "The page paginates as mirrored two-panel spreads — an SMS pose on one side answered by its parsed result on the other — scroll-snapped like turning a page, not scrolled like a feed.",
+      "palette": ["#10222A", "#F43A09", "#23935C", "#FAFDFE"],
+      "materials": ["Manrope type (no Didot)", "hairline seam rule", "scroll-snap spreads"],
+      "viewport": "Full-height spreads, each a left/right pair: raw SMS or a feature claim on one side, its Costiq-side result mirrored on the other, hairline rule down the seam; pagination replaces continuous scroll.",
+      "case": "Beats The Long Read on both axes — same editorial ambition, but the mirrored pose/answer pairing makes the mechanism concrete at every step instead of relying on prose alone, while staying more visually distinctive than a plain column.",
+      "risk": "Scroll-snap pagination can feel restrictive on mobile if panel pairs don't collapse cleanly to a stacked single column.",
+      "wireframe": {
+        "cols": 12, "rows": 6,
+        "regions": [
+          { "label": "spread 1: SMS pose", "x": 0, "y": 0, "w": 6, "h": 6, "accent": true },
+          { "label": "spread 1: parsed answer", "x": 6, "y": 0, "w": 6, "h": 6 }
+        ]
+      }
+    },
+    {
+      "id": "challenger-vumeter",
+      "label": "The Level Row",
+      "verdict": "competitive",
+      "lineage": "recording-desk VU meter bridge",
+      "thesis": "Category budgets render as a row of real needle meters that lean toward red as spend approaches the limit.",
+      "case": "Holds product clarity strongly — a leaning needle communicates \"approaching your limit\" more viscerally than a flat progress bar — but the recording-studio reference is a mild audience stretch for an everyday UPI user.",
+      "kept": "True ballistic motion (needles ease/overshoot like real levels, not instant fills) as the proof-of-automatic detail."
+    },
+    {
+      "id": "challenger-silkscreen",
+      "label": "Silkscreen Loft",
+      "verdict": "declined",
+      "lineage": "factory silkscreen editions",
+      "case": "Fuses poorly — repeated off-register portrait editions have no product-clarity link to expense tracking.",
+      "kept": "Real, distinct variation between shown examples rather than uniform mock rows."
+    },
+    {
+      "id": "challenger-ebru",
+      "label": "Ebru Basin",
+      "verdict": "declined",
+      "lineage": "floated-pigment ink art",
+      "case": "Fuses poorly — a fluid-displacement simulation is a large lift with weak payoff for \"automatic categorization.\"",
+      "kept": "New entries visibly displace what's above them as they arrive."
+    },
+    {
+      "id": "challenger-tensegrity",
+      "label": "Tensegrity Column",
+      "verdict": "declined",
+      "lineage": "engineering force-diagram sculpture",
+      "case": "Fuses poorly — abstract engineering metaphor, weak mainstream audience identification, costly constraint-graph build.",
+      "kept": "Exact values pinned to every stat and total via leader-line style precision."
+    },
+    {
+      "id": "challenger-drawcord",
+      "label": "Drawcord Cape",
+      "verdict": "declined",
+      "lineage": "transforming drawcord garment",
+      "case": "Fuses poorly — a cloth-physics simulation is a large lift and a stretch association for a finance product.",
+      "kept": "The whole product framed as one visible transformation (connect → organized) in a single dramatized motion."
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code" },
+  "steer": true
+}
