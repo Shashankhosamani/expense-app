@@ -2,11 +2,10 @@ package com.costiq.app.ui.screens.signin
 
 import android.content.Context
 import androidx.credentials.exceptions.GetCredentialCancellationException
-import androidx.credentials.exceptions.GetCredentialException
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.costiq.app.data.auth.GoogleAuthClient
 import com.costiq.app.data.auth.SupabaseAuthManager
+import com.costiq.app.data.auth.requestGoogleIdToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,7 +27,6 @@ data class SignInUiState(
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val authManager: SupabaseAuthManager,
-    private val googleAuthClient: GoogleAuthClient,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(SignInUiState())
@@ -64,13 +62,11 @@ class SignInViewModel @Inject constructor(
         _uiState.update { it.copy(isGoogleLoading = true, error = null) }
         viewModelScope.launch {
             try {
-                val result = googleAuthClient.requestIdToken(context)
+                val result = requestGoogleIdToken(context)
                 authManager.signInWithGoogleIdToken(result.idToken, result.rawNonce)
                 _uiState.update { it.copy(isGoogleLoading = false) }
             } catch (e: GetCredentialCancellationException) {
                 _uiState.update { it.copy(isGoogleLoading = false) }
-            } catch (e: GetCredentialException) {
-                _uiState.update { it.copy(isGoogleLoading = false, error = "Couldn't sign in with Google.") }
             } catch (e: Exception) {
                 _uiState.update { it.copy(isGoogleLoading = false, error = "Couldn't sign in with Google.") }
             }
