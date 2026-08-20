@@ -179,25 +179,45 @@ export default function LandingPage() {
 
       {/* Spread 3 — privacy mechanism: encrypted pose, brief-read answer */}
       <section id="privacy" className="min-h-[34rem] flex flex-col sm:flex-row bg-navy">
-        <div className="flex-1 flex flex-col justify-center gap-4 px-5 sm:px-16 py-12 sm:py-0 max-w-[28rem]">
-          <span className="w-11 h-11 rounded-[0.625rem] bg-white/10 flex items-center justify-center">
-            <Lock size={19} className="text-[#7B96A1]" />
-          </span>
-          <span className="text-xs font-bold uppercase tracking-wider text-brand">Every SMS, encrypted</span>
-          <p className="text-[0.9375rem] leading-6 text-[#AFC8D1]">
-            Your message leaves your phone encrypted. It stays that way until it's Claude's turn to read it.
-          </p>
+        <div className="flex-1 flex flex-col justify-center gap-6 px-5 sm:px-16 py-12 sm:py-0">
+          <div className="flex flex-col gap-4 max-w-[24rem]">
+            <span className="w-11 h-11 rounded-[0.625rem] bg-white/10 flex items-center justify-center">
+              <Lock size={19} className="text-[#7B96A1]" />
+            </span>
+            <span className="text-xs font-bold uppercase tracking-wider text-brand">Every SMS, encrypted</span>
+            <p className="text-[0.9375rem] leading-6 text-[#AFC8D1]">
+              Your message leaves your phone encrypted. It stays that way until it's Claude's turn to read it.
+            </p>
+          </div>
+          <div className="max-w-[24rem] rounded-2xl bg-[#152B34] border border-[#1E3742] px-4 py-3.5 select-none">
+            <span className="block h-2.5 w-[85%] rounded-full bg-[#2A4650] mb-2" />
+            <span className="block h-2.5 w-[60%] rounded-full bg-[#2A4650] mb-2" />
+            <span className="block h-2.5 w-[70%] rounded-full bg-[#2A4650]" />
+          </div>
         </div>
         <div className="hidden sm:block w-px bg-white/10" aria-hidden />
-        <div className="flex-1 flex flex-col justify-center gap-4 px-5 sm:px-16 py-12 sm:py-0 max-w-[28rem]">
-          <span className="w-11 h-11 rounded-[0.625rem] bg-success-tint flex items-center justify-center">
-            <Eye size={19} className="text-success" />
-          </span>
-          <span className="text-xs font-bold uppercase tracking-wider text-white">Read for seconds, then gone</span>
-          <p className="text-[0.9375rem] leading-6 text-white text-wrap-pretty">
-            Claude decrypts it only long enough to read the amount and merchant — kept separate from any other
-            token on your account, never a standing line into your messages.
-          </p>
+        <div className="flex-1 flex flex-col justify-center gap-6 px-5 sm:px-16 py-12 sm:py-0">
+          <div className="flex flex-col gap-4 max-w-[24rem]">
+            <span className="w-11 h-11 rounded-[0.625rem] bg-success-tint flex items-center justify-center">
+              <Eye size={19} className="text-success" />
+            </span>
+            <span className="text-xs font-bold uppercase tracking-wider text-white">Read for seconds, then gone</span>
+            <p className="text-[0.9375rem] leading-6 text-white text-wrap-pretty">
+              Claude decrypts it only long enough to read the amount and merchant — kept separate from any other
+              token on your account, never a standing line into your messages.
+            </p>
+          </div>
+          <div className="max-w-[24rem] rounded-2xl bg-surface-raised px-4 py-3.5 flex flex-col gap-2.5 shadow-2xl">
+            <div className="flex items-center justify-between">
+              <span className="text-[0.6875rem] font-bold uppercase tracking-wider text-ink-4">Merchant</span>
+              <span className="text-sm font-bold">Blinkit</span>
+            </div>
+            <div className="h-px bg-border-3" />
+            <div className="flex items-center justify-between">
+              <span className="text-[0.6875rem] font-bold uppercase tracking-wider text-ink-4">Amount</span>
+              <span className="text-sm font-bold">₹642.50</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -372,11 +392,20 @@ export default function LandingPage() {
 
       {/* Closing spread — before/after, one motion to the CTA */}
       <section className="flex flex-col sm:flex-row bg-navy">
-        <div className="flex-1 flex flex-col justify-center gap-3 px-5 sm:px-16 py-12 sm:py-24">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#7B96A1]">Before</span>
-          <p className="text-lg leading-7 text-[#7E9CA7] line-through decoration-[#3A5560]">
-            Typing every expense in by hand, at the end of a month you can barely remember.
-          </p>
+        <div className="flex-1 flex flex-col justify-center gap-6 px-5 sm:px-16 py-12 sm:py-24">
+          <div className="flex flex-col gap-3 max-w-[24rem]">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#7B96A1]">Before</span>
+            <p className="text-lg leading-7 text-[#7E9CA7] line-through decoration-[#3A5560]">
+              Typing every expense in by hand, at the end of a month you can barely remember.
+            </p>
+          </div>
+          <div className="max-w-[24rem] rounded-2xl bg-[#152B34] border border-[#1E3742] px-4 py-3.5 flex flex-col gap-2.5 opacity-60 select-none">
+            {["Blinkit ................. 640", "Swiggy .................. ?", "Uber .................. 210"].map((row) => (
+              <span key={row} className="text-[0.8125rem] font-medium text-[#7E9CA7] line-through decoration-[#3A5560]">
+                {row}
+              </span>
+            ))}
+          </div>
         </div>
         <div className="hidden sm:block w-px bg-white/10" aria-hidden />
         <div className="flex-1 flex flex-col justify-center items-start gap-5 px-5 sm:px-16 py-12 sm:py-24">
