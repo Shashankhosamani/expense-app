@@ -1,8 +1,5 @@
 package com.costiq.app.ui.nav
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -19,12 +16,12 @@ import com.costiq.app.ui.screens.addexpense.AddExpenseScreen
 import com.costiq.app.ui.screens.budget.BudgetScreen
 import com.costiq.app.ui.screens.expenses.ExpensesScreen
 import com.costiq.app.ui.screens.insights.InsightsScreen
+import com.costiq.app.ui.screens.loading.LoadingScreen
 import com.costiq.app.ui.screens.overview.OverviewScreen
 import com.costiq.app.ui.screens.review.ReviewScreen
 import com.costiq.app.ui.screens.settings.SettingsScreen
 import com.costiq.app.ui.screens.signin.SignInScreen
 import com.costiq.app.ui.screens.smsonboarding.SmsPermissionScreen
-import com.costiq.app.ui.theme.Paper
 
 /**
  * Root composable. Sign-in (M0) and the one-time SMS-permission rationale
@@ -40,7 +37,7 @@ fun CostiqApp() {
     val startDestination by rootViewModel.startDestination.collectAsState()
 
     when (startDestination) {
-        RootStartDestination.LOADING -> Box(Modifier.fillMaxSize().background(Paper))
+        RootStartDestination.LOADING -> LoadingScreen()
         RootStartDestination.SIGN_IN -> SignInScreen(onSignedIn = {})
         RootStartDestination.SMS_ONBOARDING -> SmsPermissionScreen(onDone = {})
         RootStartDestination.MAIN -> MainShell()
