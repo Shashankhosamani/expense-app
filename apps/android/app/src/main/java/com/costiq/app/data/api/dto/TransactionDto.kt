@@ -36,6 +36,7 @@ data class Transaction(
     @SerialName("reference_id") val referenceId: String? = null,
     val source: TransactionSource,
     val note: String? = null,
+    @SerialName("is_reimbursement") val isReimbursement: Boolean = false,
     @SerialName("created_at") val createdAt: String,
     @SerialName("updated_at") val updatedAt: String,
     @SerialName("deleted_at") val deletedAt: String? = null,
@@ -54,6 +55,7 @@ data class ManualTransactionInput(
     @SerialName("transaction_at") val transactionAt: String,
     @SerialName("reference_id") val referenceId: String? = null,
     val note: String? = null,
+    @SerialName("is_reimbursement") val isReimbursement: Boolean? = null,
 )
 
 /** PATCH /api/transactions/:id body — packages/shared transactionCorrectionInputSchema. */
@@ -67,6 +69,7 @@ data class TransactionCorrectionInput(
     @SerialName("payment_method") val paymentMethod: String? = null,
     @SerialName("transaction_at") val transactionAt: String? = null,
     @SerialName("reference_id") val referenceId: String? = null,
+    @SerialName("is_reimbursement") val isReimbursement: Boolean? = null,
 )
 
 @Serializable

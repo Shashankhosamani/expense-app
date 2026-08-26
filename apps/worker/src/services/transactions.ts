@@ -32,6 +32,7 @@ interface TransactionRow {
   reference_id: string | null;
   source: TransactionSource;
   note: string | null;
+  is_reimbursement: boolean;
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
@@ -64,6 +65,7 @@ function mapRow(row: TransactionRow): Transaction {
     reference_id: row.reference_id,
     source: row.source,
     note: row.note,
+    is_reimbursement: row.is_reimbursement,
     created_at: row.created_at,
     updated_at: row.updated_at,
     deleted_at: row.deleted_at,
@@ -129,6 +131,7 @@ export function createManualTransaction(
         transaction_at: input.transaction_at,
         reference_id: input.reference_id ?? null,
         note: input.note ?? null,
+        is_reimbursement: input.is_reimbursement ?? false,
         source: "manual",
       })
       .select("*, categories(name)")
@@ -149,6 +152,7 @@ interface TransactionUpdatePayload {
   payment_method?: string | null;
   transaction_at?: string;
   reference_id?: string | null;
+  is_reimbursement?: boolean;
   updated_at?: string;
 }
 
@@ -158,7 +162,7 @@ interface CorrectionDraft {
   new_value: string | null;
 }
 
-function stringifyValue(value: string | number | null | undefined): string | null {
+function stringifyValue(value: string | number | boolean | null | undefined): string | null {
   return value === null || value === undefined ? null : String(value);
 }
 
@@ -234,6 +238,16 @@ function diffTransactionFields(
         field_name: "reference_id",
         old_value: stringifyValue(existing.reference_id),
         new_value: stringifyValue(input.reference_id),
+      });
+    }
+  }
+  if (input.is_reimbursement !== undefined) {
+    if (stringifyValue(existing.is_reimbursement) !== stringifyValue(input.is_reimbursement)) {
+      updates.is_reimbursement = input.is_reimbursement;
+      corrections.push({
+        field_name: "is_reimbursement",
+        old_value: stringifyValue(existing.is_reimbursement),
+        new_value: stringifyValue(input.is_reimbursement),
       });
     }
   }

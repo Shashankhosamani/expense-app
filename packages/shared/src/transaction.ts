@@ -33,6 +33,7 @@ export const manualTransactionInputSchema = z.object({
   transaction_at: z.string(),
   reference_id: z.string().optional(),
   note: z.string().optional(),
+  is_reimbursement: z.boolean().optional(),
 });
 export type ManualTransactionInput = z.infer<typeof manualTransactionInputSchema>;
 
@@ -46,6 +47,10 @@ export const transactionCorrectionInputSchema = z.object({
   payment_method: z.string().nullable().optional(),
   transaction_at: z.string().optional(),
   reference_id: z.string().nullable().optional(),
+  // Only meaningful on a credit transaction: is this money paid back to you
+  // (a refund, a friend settling a bill you fronted)? A salary credit must
+  // stay false or it skews total_spent.
+  is_reimbursement: z.boolean().optional(),
 });
 export type TransactionCorrectionInput = z.infer<typeof transactionCorrectionInputSchema>;
 
@@ -66,6 +71,7 @@ export interface Transaction {
   reference_id: string | null;
   source: TransactionSource;
   note: string | null;
+  is_reimbursement: boolean;
   created_at: string;
   updated_at: string;
   deleted_at: string | null;

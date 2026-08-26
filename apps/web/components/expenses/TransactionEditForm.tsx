@@ -27,6 +27,7 @@ export function TransactionEditForm({ id, onClose }: { id: string; onClose: () =
   const [amount, setAmount] = useState("");
   const [categoryId, setCategoryId] = useState<string | undefined>();
   const [merchant, setMerchant] = useState("");
+  const [isReimbursement, setIsReimbursement] = useState(false);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export function TransactionEditForm({ id, onClose }: { id: string; onClose: () =
     setAmount(String(transaction.amount));
     setCategoryId(transaction.category_id ?? undefined);
     setMerchant(transaction.merchant ?? "");
+    setIsReimbursement(transaction.is_reimbursement);
   }, [transaction?.id]); // eslint-disable-line react-hooks/exhaustive-deps -- reset only when switching transactions
 
   if (!transaction) return <Loading fullPage />;
@@ -47,6 +49,7 @@ export function TransactionEditForm({ id, onClose }: { id: string; onClose: () =
         amount: Number(amount) !== transaction!.amount ? Number(amount) : undefined,
         category_id: categoryId !== transaction!.category_id ? categoryId ?? null : undefined,
         merchant: merchant !== (transaction!.merchant ?? "") ? merchant : undefined,
+        is_reimbursement: isReimbursement !== transaction!.is_reimbursement ? isReimbursement : undefined,
       });
       onClose();
     } finally {
@@ -112,6 +115,18 @@ export function TransactionEditForm({ id, onClose }: { id: string; onClose: () =
             className="bg-surface border border-border rounded-lg px-3.5 py-3 text-sm text-ink outline-none"
           />
         </Field>
+
+        {transaction.type === "credit" && (
+          <Field
+            label="Reimbursement"
+            tag={<span className="normal-case text-ink-4">money paid back to you — not salary or other income</span>}
+          >
+            <label className="flex items-center gap-2.5 text-sm text-ink">
+              <input type="checkbox" checked={isReimbursement} onChange={(e) => setIsReimbursement(e.target.checked)} />
+              Pays me back for something I already spent — subtract it from my expenses
+            </label>
+          </Field>
+        )}
 
         <TransactionDetailFields transaction={transaction} />
         <CorrectionHistory corrections={corrections} />

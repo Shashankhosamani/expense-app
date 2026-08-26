@@ -13,6 +13,7 @@ interface SummaryCategoryRef {
 interface SummaryTransactionRow {
   amount: string | number;
   type: TransactionType;
+  is_reimbursement: boolean;
   merchant: string | null;
   payment_method: string | null;
   categories: SummaryCategoryRef | null;
@@ -43,17 +44,26 @@ function spentForMonth(db: SupabaseClient, userId: string, month: string): Promi
   return Promise.resolve(
     db
       .from("transactions")
-      .select("amount")
+      .select("amount, type, is_reimbursement")
       .eq("user_id", userId)
-      .eq("type", "debit")
       .is("deleted_at", null)
       .gte("transaction_at", start)
       .lt("transaction_at", end)
-      .returns<AmountRow[]>()
+      .returns<(AmountRow & { type: TransactionType; is_reimbursement: boolean })[]>()
   ).then(({ data, error }) => {
     if (error) throw error;
-    return (data ?? []).reduce((sum, r) => sum + Number(r.amount), 0);
+    return netSpent(data ?? []);
   });
+}
+
+// Only credits explicitly flagged is_reimbursement offset expenditure — e.g. a merchant
+// refund. An ordinary credit like salary must NOT reduce total_spent.
+function netSpent(rows: { amount: string | number; type: TransactionType; is_reimbursement: boolean }[]): number {
+  const net = rows.reduce((sum, r) => {
+    if (r.type === "debit") return sum + Number(r.amount);
+    return r.is_reimbursement ? sum - Number(r.amount) : sum;
+  }, 0);
+  return Math.max(0, net);
 }
 
 export function getMonthlySummary(db: SupabaseClient, userId: string, month: string): Promise<MonthlySummary> {
@@ -62,7 +72,7 @@ export function getMonthlySummary(db: SupabaseClient, userId: string, month: str
   const transactionsQuery = Promise.resolve(
     db
       .from("transactions")
-      .select("amount, type, merchant, payment_method, categories(id, name)")
+      .select("amount, type, is_reimbursement, merchant, payment_method, categories(id, name)")
       .eq("user_id", userId)
       .is("deleted_at", null)
       .gte("transaction_at", start)
@@ -97,8 +107,8 @@ export function getMonthlySummary(db: SupabaseClient, userId: string, month: str
 
       const rows = txns ?? [];
       const debits = rows.filter((r) => r.type === "debit");
-      const totalSpent = debits.reduce((sum, r) => sum + Number(r.amount), 0);
       const totalCredited = rows.filter((r) => r.type === "credit").reduce((sum, r) => sum + Number(r.amount), 0);
+      const totalSpent = netSpent(rows);
 
       const byCategory = new Map<string, { id: string | null; amount: number }>();
       for (const r of debits) {
