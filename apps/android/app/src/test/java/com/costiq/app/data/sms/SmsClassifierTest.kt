@@ -59,6 +59,15 @@ class SmsClassifierTest {
     }
 
     @Test
+    fun `non-bank shortcode sender is discarded even with currency and verb`() {
+        // e-commerce/OTA/wallet senders are DLT-shortcode-shaped too, but only
+        // known bank sender IDs should ever reach the currency/verb check.
+        val result = SmsClassifier.classify(sender = "AMAZON", body = "Rs.500 debited for your order")
+        assertEquals(Classification.DISCARD, result.classification)
+        assertEquals("sender_not_known_bank", result.reason)
+    }
+
+    @Test
     fun `personal contact message is discarded regardless of content`() {
         val result = SmsClassifier.classify(sender = "9876543210", body = "Amma: reached home? call me when free")
         assertEquals(Classification.DISCARD, result.classification)

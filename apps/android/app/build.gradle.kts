@@ -28,7 +28,7 @@ android {
         minSdk = 26
         targetSdk = 35
         versionCode = 1
-        versionName = "0.1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -54,6 +54,22 @@ android {
         )
     }
 
+    signingConfigs {
+        create("release") {
+            // Keystore lives outside source control (apps/android/.gitignore);
+            // path/passwords come from local.properties, same pattern as the
+            // API/Supabase config above. Losing this keystore means Play Store
+            // updates to this app package can never be published again.
+            val storeFileName = localProp("RELEASE_STORE_FILE", "")
+            if (storeFileName.isNotBlank()) {
+                storeFile = rootProject.file(storeFileName)
+                storePassword = localProp("RELEASE_STORE_PASSWORD", "")
+                keyAlias = localProp("RELEASE_KEY_ALIAS", "")
+                keyPassword = localProp("RELEASE_KEY_PASSWORD", "")
+            }
+        }
+    }
+
     buildTypes {
         debug {
             // 10.0.2.2 is the emulator's alias for the host machine's
@@ -66,6 +82,9 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             buildConfigField("String", "API_BASE_URL", "\"${localProp("API_BASE_URL_RELEASE", "https://api.costiq.app")}\"")
+            if (localProp("RELEASE_STORE_FILE", "").isNotBlank()) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
 

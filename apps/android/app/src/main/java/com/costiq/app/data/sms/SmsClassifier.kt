@@ -47,6 +47,26 @@ object SmsClassifier {
             "|^[A-Z]{2}-[A-Z0-9]{2,6}-[A-Z]$"
     )
 
+    // Step 3b — sender identity: shortcode-shaped isn't enough on its own (e-commerce,
+    // OTAs, wallets, telecom all use DLT shortcodes too). Gate on known Indian bank /
+    // payments-bank name fragments actually embedded in real sender IDs
+    // (e.g. "HDFCBK", "AD-ICICIB-S", "VM-UNIONB"). Extend this set as new banks surface.
+    private val bankSenderTokens = setOf(
+        // Private sector
+        "HDFC", "ICICI", "AXIS", "KOTAK", "INDUSB", "INDUS", "YESBNK", "RBLBNK", "RBL", "IDFCFB", "IDFC",
+        "FEDBNK", "FEDERAL", "SCBLTD", "SCBIND", "HSBCIN", "HSBC", "CITIBK", "CITI", "DBSBNK", "DBS",
+        "KVBBNK", "KVB", "DCBBNK", "DCB", "CSBBNK", "CSB", "TMBLTD", "TMB", "SIBLTD", "SIB", "DHANBK", "DHANLAXMI",
+        "JKBANK", "JKB", "BANDHN", "BANDHAN", "AUBANK", "AUSFB", "EQUITB", "EQUITAS", "UJJIVN", "UJJIVAN",
+        "ESAFBK", "ESAF",
+        // Public sector
+        "SBIINB", "SBIBNK", "SBIPSG", "SBI", "PNBSMS", "PNB", "BOIIND", "BOI",
+        "CANBNK", "CNRBNK", "CNRB", "CANARA", "UNIONB", "UBIN", "UNIONBANK",
+        "BOBIBN", "BOBTXN", "BARODA", "IDBIBK", "IDBI", "CENTBK", "CBIN", "CENTRALBANK",
+        "UCOBNK", "UCO", "INDBNK", "INDIANBANK", "IOBCHN", "IOB", "PSBIND", "PSB", "MAHABK", "MAHB",
+        // Payments / small finance banks
+        "PAYTMB", "PAYTM", "AIRBNK", "AIRTEL", "FINOBK", "FINO", "JIOPAY", "NSDLPB", "INDPOST",
+    )
+
     // Step 4/5 — currency markers, tolerant of punctuation/spacing variants banks actually use (Rs., Rs:, RS , rs.).
     private val currencyPattern = Regex("rs\\.?\\s?\\d|inr\\s?\\d|₹\\s?\\d|rs:\\d", RegexOption.IGNORE_CASE)
     private val transactionVerbPattern = Regex(
@@ -61,8 +81,12 @@ object SmsClassifier {
         if (adminPattern.containsMatchIn(body)) {
             return ClassificationResult(Classification.DISCARD, "administrative_content")
         }
-        if (!shortcodeSenderPattern.matches(sender.trim().uppercase())) {
+        val normalizedSender = sender.trim().uppercase()
+        if (!shortcodeSenderPattern.matches(normalizedSender)) {
             return ClassificationResult(Classification.DISCARD, "sender_not_shortcode_shaped")
+        }
+        if (bankSenderTokens.none { normalizedSender.contains(it) }) {
+            return ClassificationResult(Classification.DISCARD, "sender_not_known_bank")
         }
 
         val hasCurrency = currencyPattern.containsMatchIn(body)

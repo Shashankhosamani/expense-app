@@ -3,6 +3,7 @@ package com.costiq.app.ui.components
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.TrendingDown
+import androidx.compose.material.icons.automirrored.outlined.Logout
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ChevronLeft
@@ -97,5 +98,6 @@ fun iconFor(lucideName: String): ImageVector = when (lucideName) {
     "clapperboard" -> Icons.Outlined.Movie
     "heart-pulse" -> Icons.Outlined.MonitorHeart
     "circle-dashed" -> Icons.Outlined.RadioButtonUnchecked
+    "log-out" -> Icons.AutoMirrored.Outlined.Logout
     else -> Icons.Outlined.Circle
 }

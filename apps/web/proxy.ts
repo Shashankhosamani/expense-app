@@ -1,5 +1,6 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { SESSION_COOKIE_MAX_AGE } from "./lib/supabase/sessionCookie";
 
 type CookieToSet = { name: string; value: string; options: CookieOptions };
 
@@ -18,6 +19,7 @@ export async function proxy(request: NextRequest) {
   }
 
   const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
+    cookieOptions: { maxAge: SESSION_COOKIE_MAX_AGE },
     cookies: {
       getAll() {
         return request.cookies.getAll();

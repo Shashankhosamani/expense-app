@@ -130,6 +130,19 @@ fun SettingsScreen(onBack: () -> Unit) {
                     }
                 }
             }
+
+            CostiqCard {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable(onClick = viewModel::signOut),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(iconFor("log-out"), contentDescription = null, tint = Vermilion, modifier = Modifier.size(18.dp))
+                    Spacer(Modifier.width(13.dp))
+                    Text("Sign out", style = MaterialTheme.typography.bodyMedium, color = Vermilion)
+                }
+            }
         }
     }
 }

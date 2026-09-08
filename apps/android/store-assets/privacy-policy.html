@@ -1,0 +1,392 @@
+<title>Costiq Privacy Policy</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --bg: #F6FAFA;
+    --surface: #FFFFFF;
+    --surface-alt: #EAF6F1;
+    --ink: #10222A;
+    --ink-muted: #4B6570;
+    --border: #D7E6E6;
+    --accent: #F43A09;
+    --accent-soft: #FDE7DE;
+    --safe: #1C7A4C;
+    --safe-soft: #DCF3E7;
+    --mint: #C2EDDA;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0B171D;
+      --surface: #10222A;
+      --surface-alt: #123028;
+      --ink: #ECF3F3;
+      --ink-muted: #9FB6BD;
+      --border: #23383F;
+      --accent: #FF7A50;
+      --accent-soft: #2A1C16;
+      --safe: #4CD48F;
+      --safe-soft: #12281F;
+      --mint: #1B3A32;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0B171D;
+    --surface: #10222A;
+    --surface-alt: #123028;
+    --ink: #ECF3F3;
+    --ink-muted: #9FB6BD;
+    --border: #23383F;
+    --accent: #FF7A50;
+    --accent-soft: #2A1C16;
+    --safe: #4CD48F;
+    --safe-soft: #12281F;
+    --mint: #1B3A32;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+
+  h1, h2 {
+    font-family: "Sora", "Segoe UI", system-ui, sans-serif;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+
+  a { color: var(--accent); }
+
+  .wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  header.top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 28px 0 8px;
+  }
+
+  header.top .name {
+    font-family: "Sora", sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+  }
+
+  .hero {
+    padding: 28px 0 8px;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.9rem, 5vw, 2.5rem);
+    font-weight: 700;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero .meta {
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .hero .lede {
+    margin: 18px 0 0;
+    color: var(--ink-muted);
+    font-size: 1.08rem;
+    max-width: 60ch;
+  }
+
+  .facts {
+    margin: 32px 0 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 24px;
+    display: grid;
+    gap: 16px;
+  }
+
+  .facts .label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+  }
+
+  .fact-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .fact-row .dot {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--safe-soft);
+    color: var(--safe);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  .fact-row .dot svg { width: 12px; height: 12px; }
+
+  .fact-row .text b {
+    display: block;
+    font-weight: 600;
+  }
+  .fact-row .text span {
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+  }
+
+  nav.toc {
+    margin: 40px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+  }
+  nav.toc .label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--ink-muted);
+    margin-bottom: 10px;
+  }
+  nav.toc ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    columns: 2;
+    gap: 8px 24px;
+  }
+  nav.toc li { break-inside: avoid; margin-bottom: 8px; }
+  nav.toc a { text-decoration: none; font-weight: 500; font-size: 0.95rem; }
+  nav.toc a:hover { text-decoration: underline; }
+
+  section {
+    padding: 34px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  section:last-of-type { border-bottom: none; }
+
+  section h2 {
+    font-size: 1.32rem;
+    font-weight: 600;
+    margin: 0 0 14px;
+    scroll-margin-top: 20px;
+  }
+
+  section p { margin: 0 0 14px; }
+  section ul { margin: 0 0 14px; padding-left: 22px; }
+  section li { margin-bottom: 8px; }
+
+  .callout {
+    background: var(--surface-alt);
+    border: 1px solid var(--mint);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin: 18px 0;
+  }
+  .callout .label {
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--safe);
+    margin-bottom: 8px;
+  }
+  .callout ul { margin: 0; padding-left: 20px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 14px;
+    font-size: 0.96rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    color: var(--ink-muted);
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .table-wrap { overflow-x: auto; }
+
+  footer {
+    padding-top: 36px;
+    color: var(--ink-muted);
+    font-size: 0.92rem;
+  }
+  footer a { color: var(--accent); }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <svg width="26" height="26" viewBox="0 0 108 108" aria-hidden="true">
+      <circle cx="54" cy="54" r="32" fill="none" stroke="var(--mint)" stroke-width="12"/>
+      <path d="M54,22 A32,32 0 0,1 82,70" fill="none" stroke="var(--accent)" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="54" cy="54" r="8" fill="var(--safe)"/>
+    </svg>
+    <span class="name">Costiq</span>
+  </header>
+
+  <div class="hero">
+    <h1>Privacy Policy</h1>
+    <p class="meta">Effective 27 August 2026</p>
+    <p class="lede">Costiq turns your bank's SMS alerts into an expense log. This page explains exactly what the app reads, what it sends anywhere, and what never leaves your phone.</p>
+  </div>
+
+  <div class="facts">
+    <div class="label">At a glance</div>
+    <div class="fact-row">
+      <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span>
+      <div class="text"><b>Messages are sorted on your phone first.</b><span>Nothing is sent to Costiq's servers until your device has already decided a message looks like a bank transaction.</span></div>
+    </div>
+    <div class="fact-row">
+      <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span>
+      <div class="text"><b>OTPs and verification codes are never uploaded.</b><span>They're detected and discarded on-device, before anything is queued.</span></div>
+    </div>
+    <div class="fact-row">
+      <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span>
+      <div class="text"><b>Personal messages are ignored, always.</b><span>Only messages from bank/payment-style senders are ever read.</span></div>
+    </div>
+    <div class="fact-row">
+      <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span>
+      <div class="text"><b>What is uploaded is encrypted.</b><span>Message content is encrypted with a key unique to your account before it's stored.</span></div>
+    </div>
+  </div>
+
+  <nav class="toc">
+    <div class="label">On this page</div>
+    <ol>
+      <li><a href="#collect">Information we collect</a></li>
+      <li><a href="#sms">SMS access, in detail</a></li>
+      <li><a href="#use">How we use it</a></li>
+      <li><a href="#storage">Storage &amp; security</a></li>
+      <li><a href="#sharing">Sharing</a></li>
+      <li><a href="#retention">Retention &amp; deletion</a></li>
+      <li><a href="#choices">Your choices</a></li>
+      <li><a href="#children">Children's privacy</a></li>
+      <li><a href="#changes">Changes to this policy</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ol>
+  </nav>
+
+  <section id="collect">
+    <h2>Information we collect</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Data</th><th>Where it comes from</th></tr></thead>
+        <tbody>
+          <tr><td>Account email, authentication tokens</td><td>You, when you sign in (email/password or Google sign-in)</td></tr>
+          <tr><td>Bank/payment SMS text</td><td>Your device's SMS inbox, filtered before upload — see below</td></tr>
+          <tr><td>Transaction details (amount, merchant, category, payment method, date)</td><td>Parsed from the SMS above, or entered by hand in the app</td></tr>
+          <tr><td>Corrections you make to a transaction</td><td>Logged so you can see an edit history</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Costiq does not collect your contacts, call logs, location, photos, or any SMS unrelated to money.</p>
+  </section>
+
+  <section id="sms">
+    <h2>SMS access, in detail</h2>
+    <p>Costiq requests the <code>READ_SMS</code> and <code>RECEIVE_SMS</code> permissions for one purpose: turning your bank's transaction alerts into expense entries automatically, without you typing anything in.</p>
+    <p>Every incoming message is run through an on-device filter before anything happens with it:</p>
+    <ul>
+      <li><b>Sender shape check</b> — only messages from short-code, bank-style senders (e.g. <code>HDFCBK</code>) are considered at all. Messages from ordinary phone numbers or contacts are ignored.</li>
+      <li><b>Hard exclusions</b> — anything that looks like a one-time password, verification code, or account/KYC notice is dropped immediately and never leaves your device.</li>
+      <li><b>Transaction signal check</b> — what's left is only uploaded if it contains both a currency amount and a transaction verb ("debited", "credited", "spent", etc.); ambiguous messages are queued for a lower-confidence review, and everything else is discarded.</li>
+    </ul>
+    <div class="callout">
+      <div class="label">Never leaves your phone</div>
+      <ul>
+        <li>"Your OTP for login is 4521. Do not share."</li>
+        <li>"Flat 40% off this weekend at…"</li>
+        <li>Any message from a personal contact</li>
+      </ul>
+    </div>
+    <p>You can decline SMS access entirely and add every expense by hand instead, or turn it off later from Settings — expenses already recorded are kept; new messages simply stop being read.</p>
+  </section>
+
+  <section id="use">
+    <h2>How we use it</h2>
+    <ul>
+      <li>To build your expense list, monthly summaries, budgets, and spending insights.</li>
+      <li>To let you review, correct, or delete any transaction.</li>
+      <li>To operate account sign-in and keep your data scoped to your account only.</li>
+    </ul>
+    <p>We do not use your data for advertising, and we do not sell it to anyone.</p>
+  </section>
+
+  <section id="storage">
+    <h2>Storage &amp; security</h2>
+    <p>Transaction data and uploaded message text are stored on Supabase infrastructure. Message text is encrypted at rest with a key derived per-account — it is only decrypted server-side to extract the transaction amount and merchant, and is never displayed back to you as raw message text in the app.</p>
+    <p>Data in transit is sent over HTTPS.</p>
+  </section>
+
+  <section id="sharing">
+    <h2>Sharing</h2>
+    <p>We don't share your data with advertisers or data brokers. Your data is processed by:</p>
+    <ul>
+      <li><b>Supabase</b> — database, authentication, and storage infrastructure.</li>
+      <li><b>Google</b> — only if you choose to sign in with Google, to verify your identity.</li>
+    </ul>
+    <p>We may disclose information if required by law.</p>
+  </section>
+
+  <section id="retention">
+    <h2>Retention &amp; deletion</h2>
+    <p>Your data is kept for as long as your account is active. Deleting a transaction removes it from your active list; you can request full account deletion at any time by contacting us below, which removes your account, transactions, and any stored message content.</p>
+  </section>
+
+  <section id="choices">
+    <h2>Your choices</h2>
+    <ul>
+      <li>Decline or revoke SMS permission at any time from your device's app settings.</li>
+      <li>Edit or delete any transaction from within the app.</li>
+      <li>Request a copy or deletion of your data by contacting us below.</li>
+    </ul>
+  </section>
+
+  <section id="children">
+    <h2>Children's privacy</h2>
+    <p>Costiq is not directed at children under 13, and we do not knowingly collect data from them.</p>
+  </section>
+
+  <section id="changes">
+    <h2>Changes to this policy</h2>
+    <p>If this policy changes, we'll update the effective date at the top of this page. Material changes will be noted in the app.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Questions about this policy or your data — reach out at <a href="mailto:shashankhosamani1109@gmail.com">shashankhosamani1109@gmail.com</a>.</p>
+  </section>
+
+  <footer>
+    Costiq — expenses tracked from your bank SMS, automatically and privately.
+  </footer>
+</div>

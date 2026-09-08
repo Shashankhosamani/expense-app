@@ -2,6 +2,7 @@ package com.costiq.app.ui.screens.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.costiq.app.data.auth.SupabaseAuthManager
 import com.costiq.app.data.prefs.AppPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -13,6 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val appPreferences: AppPreferences,
+    private val authManager: SupabaseAuthManager,
 ) : ViewModel() {
 
     val smsCaptureEnabled: StateFlow<Boolean> = appPreferences.smsCaptureEnabled
@@ -21,5 +23,10 @@ class SettingsViewModel @Inject constructor(
     /** Only ever flips the local flag — the OS RECEIVE_SMS/READ_SMS grant is untouched (apps can't revoke their own permissions). */
     fun setSmsCaptureEnabled(enabled: Boolean) {
         viewModelScope.launch { appPreferences.setSmsCaptureEnabled(enabled) }
+    }
+
+    /** No further action needed here — RootViewModel observes sessionStatus and swaps to the sign-in screen once this resolves to NotAuthenticated. */
+    fun signOut() {
+        viewModelScope.launch { authManager.signOut() }
     }
 }
