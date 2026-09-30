@@ -52,7 +52,7 @@ import com.costiq.app.ui.theme.Vermilion
 import com.costiq.app.util.formatINR
 
 @Composable
-fun ExpensesScreen() {
+fun ExpensesScreen(onOpenTransaction: (String) -> Unit) {
     val viewModel: ExpensesViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsState()
     val listState = rememberLazyListState()
@@ -64,7 +64,7 @@ fun ExpensesScreen() {
             state.isLoading -> LoadingState()
             state.error != null -> ErrorState(state.error!!, onRetry = viewModel::retry)
             state.groups.isEmpty() -> EmptyState("No expenses match this filter.")
-            else -> ExpenseFeed(state, listState, viewModel)
+            else -> ExpenseFeed(state, listState, viewModel, onOpenTransaction)
         }
     }
 }
@@ -131,7 +131,7 @@ private fun TopSection(state: ExpensesUiState, viewModel: ExpensesViewModel) {
 }
 
 @Composable
-private fun ExpenseFeed(state: ExpensesUiState, listState: LazyListState, viewModel: ExpensesViewModel) {
+private fun ExpenseFeed(state: ExpensesUiState, listState: LazyListState, viewModel: ExpensesViewModel, onOpenTransaction: (String) -> Unit) {
     val shouldLoadMore by remember {
         derivedStateOf {
             val lastVisible = listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
@@ -167,6 +167,7 @@ private fun ExpenseFeed(state: ExpensesUiState, listState: LazyListState, viewMo
                     categoryName = txn.categoryName,
                     amount = txn.amount,
                     type = txn.type,
+                    modifier = Modifier.clickable { onOpenTransaction(txn.id) },
                     trailingLabel = if (txn.source == com.costiq.app.data.api.dto.TransactionSource.MANUAL) "Manual" else "SMS",
                 )
             }

@@ -8,6 +8,8 @@ object Routes {
     const val EXPENSES = "expenses" // M2
     const val REVIEW = "review" // M3
     const val ADD_EXPENSE = "add_expense" // M4
+    const val EDIT_EXPENSE = "edit_expense/{id}" // M4, reused for edits
+    fun editExpense(id: String) = "edit_expense/$id"
     const val BUDGET = "budget" // M5
     const val INSIGHTS = "insights" // M6
     const val SETTINGS = "settings"

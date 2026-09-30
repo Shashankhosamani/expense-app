@@ -53,13 +53,13 @@ import com.costiq.app.util.formatDateTime
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun AddExpenseScreen(onDone: () -> Unit) {
+fun AddExpenseScreen(onDone: (saved: Boolean) -> Unit) {
     val viewModel: AddExpenseViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsState()
     val context = LocalContext.current
 
     LaunchedEffect(state.saved) {
-        if (state.saved) onDone()
+        if (state.saved) onDone(true)
     }
 
     Column(Modifier.fillMaxSize().background(Paper)) {
@@ -74,10 +74,10 @@ fun AddExpenseScreen(onDone: () -> Unit) {
                 iconFor("x"),
                 contentDescription = "Close",
                 tint = com.costiq.app.ui.theme.TextBody,
-                modifier = Modifier.clickable(onClick = onDone),
+                modifier = Modifier.clickable { onDone(false) },
             )
             Spacer(Modifier.width(12.dp))
-            Text("Add an expense", style = MaterialTheme.typography.titleLarge, color = Ink, modifier = Modifier.weight(1f))
+            Text(if (state.isEditing) "Edit expense" else "Add an expense", style = MaterialTheme.typography.titleLarge, color = Ink, modifier = Modifier.weight(1f))
             if (state.isSaving) {
                 CircularProgressIndicator(color = Vermilion, modifier = Modifier.size(20.dp))
             } else {

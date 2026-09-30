@@ -63,6 +63,7 @@ fun OverviewScreen(
     onOpenBudget: () -> Unit,
     onOpenExpenses: () -> Unit,
     onOpenSettings: () -> Unit,
+    onOpenTransaction: (String) -> Unit,
 ) {
     val viewModel: OverviewViewModel = hiltViewModel()
     val state by viewModel.uiState.collectAsState()
@@ -79,7 +80,7 @@ fun OverviewScreen(
         when {
             state.isLoading -> LoadingState()
             state.error != null -> ErrorState(state.error!!, onRetry = viewModel::load)
-            else -> OverviewBody(state, onOpenReview, onOpenBudget, onOpenExpenses)
+            else -> OverviewBody(state, onOpenReview, onOpenBudget, onOpenExpenses, onOpenTransaction)
         }
     }
 }
@@ -151,6 +152,7 @@ private fun OverviewBody(
     onOpenReview: () -> Unit,
     onOpenBudget: () -> Unit,
     onOpenExpenses: () -> Unit,
+    onOpenTransaction: (String) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -162,7 +164,7 @@ private fun OverviewBody(
         }
         item { BudgetCard(state, onOpenBudget) }
         item { KpiGrid(state) }
-        item { RecentCard(state, onOpenExpenses) }
+        item { RecentCard(state, onOpenExpenses, onOpenTransaction) }
     }
 }
 
@@ -293,7 +295,7 @@ private fun KpiGrid(state: OverviewUiState) {
 }
 
 @Composable
-private fun RecentCard(state: OverviewUiState, onOpenExpenses: () -> Unit) {
+private fun RecentCard(state: OverviewUiState, onOpenExpenses: () -> Unit, onOpenTransaction: (String) -> Unit) {
     CostiqCard(contentPadding = PaddingValues(0.dp)) {
         Column {
             Row(
@@ -324,6 +326,7 @@ private fun RecentCard(state: OverviewUiState, onOpenExpenses: () -> Unit) {
                         categoryName = txn.categoryName,
                         amount = txn.amount,
                         type = txn.type,
+                        modifier = Modifier.clickable { onOpenTransaction(txn.id) },
                     )
                 }
             }
