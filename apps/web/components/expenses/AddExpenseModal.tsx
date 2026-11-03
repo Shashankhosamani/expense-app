@@ -30,6 +30,7 @@ export function AddExpenseModal() {
   const [transactionAt, setTransactionAt] = useState(nowLocalInputValue());
   const [paymentMethod, setPaymentMethod] = useState("UPI");
   const [note, setNote] = useState("");
+  const [isOneTime, setIsOneTime] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -53,12 +54,14 @@ export function AddExpenseModal() {
         transaction_at: new Date(transactionAt).toISOString(),
         payment_method: paymentMethod || undefined,
         note: note || undefined,
+        is_one_time: direction === "debit" && isOneTime ? true : undefined,
       });
       close();
       setAmount("");
       setMerchant("");
       setCategoryId(undefined);
       setNote("");
+      setIsOneTime(false);
     } catch {
       setError("Could not save this expense. Try again.");
     } finally {
@@ -153,6 +156,23 @@ export function AddExpenseModal() {
               className="bg-surface border border-border rounded-lg px-3.5 py-3 text-sm text-ink outline-none min-h-[3.75rem] resize-none"
             />
           </Field>
+
+          {direction === "debit" && (
+            <label className="flex items-start gap-2.5 text-sm text-ink">
+              <input
+                type="checkbox"
+                checked={isOneTime}
+                onChange={(e) => setIsOneTime(e.target.checked)}
+                className="mt-0.5"
+              />
+              <span>
+                One-time big purchase
+                <span className="block text-xs text-ink-3">
+                  A laptop or appliance. Kept out of this month&apos;s spending and budget.
+                </span>
+              </span>
+            </label>
+          )}
 
           {error && <div className="text-sm text-brand-dark">{error}</div>}
         </div>

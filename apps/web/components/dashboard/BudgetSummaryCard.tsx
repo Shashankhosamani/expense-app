@@ -59,6 +59,13 @@ export function BudgetSummaryCard({ summary, budget }: { summary: MonthlySummary
         </div>
       )}
 
+      {summary && summary.one_time_count > 0 && (
+        <div className="rounded-lg bg-warn-tint border border-[#FFD9AC] px-3.5 py-2.5 text-xs text-[#A9670A]">
+          Not counted above: {formatINR(summary.one_time_spent)} on {summary.one_time_count} big{" "}
+          {summary.one_time_count === 1 ? "purchase" : "purchases"} this month.
+        </div>
+      )}
+
       {budget && (
         <div className="border-t border-dashed border-border-2 pt-4.5 flex flex-wrap gap-x-9 gap-y-3">
           <Stat
