@@ -27,8 +27,8 @@ interface BudgetMonthRow {
 
 function monthRange(month: string): [string, string] {
   const [y, m] = month.split("-").map(Number);
-  const start = `${month}-01`;
-  const end = m === 12 ? `${y + 1}-01-01` : `${y}-${String(m + 1).padStart(2, "0")}-01`;
+  const start = `${month}-01T00:00:00+05:30`;
+  const end = `${m === 12 ? y + 1 : y}-${String(m === 12 ? 1 : m + 1).padStart(2, "0")}-01T00:00:00+05:30`; // IST month boundaries
   return [start, end];
 }
 
@@ -116,6 +116,7 @@ export function getMonthlySummary(db: SupabaseClient, userId: string, month: str
       const oneTimeDebits = allDebits.filter((r) => r.is_one_time);
       const totalCredited = rows.filter((r) => r.type === "credit").reduce((sum, r) => sum + Number(r.amount), 0);
       const totalSpent = netSpent(rows);
+      const debitTotal = debits.reduce((sum, r) => sum + Number(r.amount), 0); // gross, so shares add to 100%
 
       const byCategory = new Map<string, { id: string | null; amount: number }>();
       for (const r of debits) {
@@ -129,7 +130,7 @@ export function getMonthlySummary(db: SupabaseClient, userId: string, month: str
           category_id: v.id,
           category_name: name,
           amount: v.amount,
-          percent: totalSpent > 0 ? Math.round((v.amount / totalSpent) * 100) : 0,
+          percent: debitTotal > 0 ? Math.round((v.amount / debitTotal) * 100) : 0,
         }))
         .sort((a, b) => b.amount - a.amount);
 
@@ -152,7 +153,7 @@ export function getMonthlySummary(db: SupabaseClient, userId: string, month: str
         .map(([method, amount]) => ({
           method,
           amount,
-          percent: totalSpent > 0 ? Math.round((amount / totalSpent) * 100) : 0,
+          percent: debitTotal > 0 ? Math.round((amount / debitTotal) * 100) : 0,
         }))
         .sort((a, b) => b.amount - a.amount);
 

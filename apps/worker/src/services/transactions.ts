@@ -87,9 +87,9 @@ export function listTransactions(
     .order("transaction_at", { ascending: false });
 
   if (query.month) {
-    const start = `${query.month}-01`;
+    const start = `${query.month}-01T00:00:00+05:30`;
     const [y, m] = query.month.split("-").map(Number);
-    const nextMonth = m === 12 ? `${y + 1}-01-01` : `${y}-${String(m + 1).padStart(2, "0")}-01`;
+    const nextMonth = `${m === 12 ? y + 1 : y}-${String(m === 12 ? 1 : m + 1).padStart(2, "0")}-01T00:00:00+05:30`;
     q = q.gte("transaction_at", start).lt("transaction_at", nextMonth);
   }
   if (query.category_id) q = q.eq("category_id", query.category_id);
