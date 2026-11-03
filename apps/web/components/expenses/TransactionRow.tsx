@@ -20,6 +20,11 @@ export function TransactionRow({ transaction: t }: { transaction: Transaction })
       <span className="flex-1 min-w-0 flex items-center gap-3">
         <CategoryIcon categoryName={t.category_name} size={15} />
         <span className="text-sm font-medium truncate">{t.merchant ?? "Unknown"}</span>
+        {t.is_one_time && (
+          <Badge tone="warn" className="shrink-0">
+            One-time
+          </Badge>
+        )}
       </span>
       <span className="hidden md:block">
         <span

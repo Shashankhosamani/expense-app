@@ -10,6 +10,10 @@ export interface MonthlySummary {
   total_spent: number;
   total_credited: number;
   expense_count: number;
+  // One-time expenses flagged is_one_time: excluded from total_spent and the
+  // breakdowns above, reported on their own.
+  one_time_spent: number;
+  one_time_count: number;
   messages_captured: number;
   not_transactions: number;
   category_breakdown: CategoryBreakdown[];

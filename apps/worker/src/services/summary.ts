@@ -14,6 +14,7 @@ interface SummaryTransactionRow {
   amount: string | number;
   type: TransactionType;
   is_reimbursement: boolean;
+  is_one_time: boolean;
   merchant: string | null;
   payment_method: string | null;
   categories: SummaryCategoryRef | null;
@@ -44,12 +45,12 @@ function spentForMonth(db: SupabaseClient, userId: string, month: string): Promi
   return Promise.resolve(
     db
       .from("transactions")
-      .select("amount, type, is_reimbursement")
+      .select("amount, type, is_reimbursement, is_one_time")
       .eq("user_id", userId)
       .is("deleted_at", null)
       .gte("transaction_at", start)
       .lt("transaction_at", end)
-      .returns<(AmountRow & { type: TransactionType; is_reimbursement: boolean })[]>()
+      .returns<(AmountRow & { type: TransactionType; is_reimbursement: boolean; is_one_time: boolean })[]>()
   ).then(({ data, error }) => {
     if (error) throw error;
     return netSpent(data ?? []);
@@ -58,9 +59,13 @@ function spentForMonth(db: SupabaseClient, userId: string, month: string): Promi
 
 // Only credits explicitly flagged is_reimbursement offset expenditure — e.g. a merchant
 // refund. An ordinary credit like salary must NOT reduce total_spent.
-function netSpent(rows: { amount: string | number; type: TransactionType; is_reimbursement: boolean }[]): number {
+// Debits flagged is_one_time are one-off purchases outside the normal monthly pattern:
+// they are left out here and reported separately.
+function netSpent(
+  rows: { amount: string | number; type: TransactionType; is_reimbursement: boolean; is_one_time: boolean }[]
+): number {
   const net = rows.reduce((sum, r) => {
-    if (r.type === "debit") return sum + Number(r.amount);
+    if (r.type === "debit") return r.is_one_time ? sum : sum + Number(r.amount);
     return r.is_reimbursement ? sum - Number(r.amount) : sum;
   }, 0);
   return Math.max(0, net);
@@ -72,7 +77,7 @@ export function getMonthlySummary(db: SupabaseClient, userId: string, month: str
   const transactionsQuery = Promise.resolve(
     db
       .from("transactions")
-      .select("amount, type, is_reimbursement, merchant, payment_method, categories(id, name)")
+      .select("amount, type, is_reimbursement, is_one_time, merchant, payment_method, categories(id, name)")
       .eq("user_id", userId)
       .is("deleted_at", null)
       .gte("transaction_at", start)
@@ -106,7 +111,9 @@ export function getMonthlySummary(db: SupabaseClient, userId: string, month: str
       if (error) throw error;
 
       const rows = txns ?? [];
-      const debits = rows.filter((r) => r.type === "debit");
+      const allDebits = rows.filter((r) => r.type === "debit");
+      const debits = allDebits.filter((r) => !r.is_one_time);
+      const oneTimeDebits = allDebits.filter((r) => r.is_one_time);
       const totalCredited = rows.filter((r) => r.type === "credit").reduce((sum, r) => sum + Number(r.amount), 0);
       const totalSpent = netSpent(rows);
 
@@ -157,6 +164,8 @@ export function getMonthlySummary(db: SupabaseClient, userId: string, month: str
         total_spent: totalSpent,
         total_credited: totalCredited,
         expense_count: debits.length,
+        one_time_spent: oneTimeDebits.reduce((sum, r) => sum + Number(r.amount), 0),
+        one_time_count: oneTimeDebits.length,
         messages_captured: messages_captured ?? 0,
         not_transactions: not_transactions ?? 0,
         category_breakdown,

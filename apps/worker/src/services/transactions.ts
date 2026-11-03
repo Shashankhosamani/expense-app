@@ -33,6 +33,7 @@ interface TransactionRow {
   source: TransactionSource;
   note: string | null;
   is_reimbursement: boolean;
+  is_one_time: boolean;
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
@@ -66,6 +67,7 @@ function mapRow(row: TransactionRow): Transaction {
     source: row.source,
     note: row.note,
     is_reimbursement: row.is_reimbursement,
+    is_one_time: row.is_one_time,
     created_at: row.created_at,
     updated_at: row.updated_at,
     deleted_at: row.deleted_at,
@@ -132,6 +134,7 @@ export function createManualTransaction(
         reference_id: input.reference_id ?? null,
         note: input.note ?? null,
         is_reimbursement: input.is_reimbursement ?? false,
+        is_one_time: input.is_one_time ?? false,
         source: "manual",
       })
       .select("*, categories(name)")
@@ -153,6 +156,7 @@ interface TransactionUpdatePayload {
   transaction_at?: string;
   reference_id?: string | null;
   is_reimbursement?: boolean;
+  is_one_time?: boolean;
   updated_at?: string;
 }
 
@@ -248,6 +252,16 @@ function diffTransactionFields(
         field_name: "is_reimbursement",
         old_value: stringifyValue(existing.is_reimbursement),
         new_value: stringifyValue(input.is_reimbursement),
+      });
+    }
+  }
+  if (input.is_one_time !== undefined) {
+    if (stringifyValue(existing.is_one_time) !== stringifyValue(input.is_one_time)) {
+      updates.is_one_time = input.is_one_time;
+      corrections.push({
+        field_name: "is_one_time",
+        old_value: stringifyValue(existing.is_one_time),
+        new_value: stringifyValue(input.is_one_time),
       });
     }
   }

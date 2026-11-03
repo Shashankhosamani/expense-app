@@ -28,6 +28,7 @@ export function TransactionEditForm({ id, onClose }: { id: string; onClose: () =
   const [categoryId, setCategoryId] = useState<string | undefined>();
   const [merchant, setMerchant] = useState("");
   const [isReimbursement, setIsReimbursement] = useState(false);
+  const [isOneTime, setIsOneTime] = useState(false);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -38,6 +39,7 @@ export function TransactionEditForm({ id, onClose }: { id: string; onClose: () =
     setCategoryId(transaction.category_id ?? undefined);
     setMerchant(transaction.merchant ?? "");
     setIsReimbursement(transaction.is_reimbursement);
+    setIsOneTime(transaction.is_one_time);
   }, [transaction?.id]); // eslint-disable-line react-hooks/exhaustive-deps -- reset only when switching transactions
 
   if (!transaction) return <Loading fullPage />;
@@ -50,6 +52,7 @@ export function TransactionEditForm({ id, onClose }: { id: string; onClose: () =
         category_id: categoryId !== transaction!.category_id ? categoryId ?? null : undefined,
         merchant: merchant !== (transaction!.merchant ?? "") ? merchant : undefined,
         is_reimbursement: isReimbursement !== transaction!.is_reimbursement ? isReimbursement : undefined,
+        is_one_time: isOneTime !== transaction!.is_one_time ? isOneTime : undefined,
       });
       onClose();
     } finally {
@@ -124,6 +127,18 @@ export function TransactionEditForm({ id, onClose }: { id: string; onClose: () =
             <label className="flex items-center gap-2.5 text-sm text-ink">
               <input type="checkbox" checked={isReimbursement} onChange={(e) => setIsReimbursement(e.target.checked)} />
               Pays me back for something I already spent — subtract it from my expenses
+            </label>
+          </Field>
+        )}
+
+        {transaction.type === "debit" && (
+          <Field
+            label="One-time expense"
+            tag={<span className="normal-case text-ink-4">an unusual, non-recurring expense</span>}
+          >
+            <label className="flex items-center gap-2.5 text-sm text-ink">
+              <input type="checkbox" checked={isOneTime} onChange={(e) => setIsOneTime(e.target.checked)} />
+              One-time purchase — keep it out of this month&apos;s spending and budget
             </label>
           </Field>
         )}

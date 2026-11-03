@@ -34,6 +34,9 @@ export const manualTransactionInputSchema = z.object({
   reference_id: z.string().optional(),
   note: z.string().optional(),
   is_reimbursement: z.boolean().optional(),
+  // A one-off purchase outside the normal monthly pattern. Kept out of
+  // monthly spend/budget and reported separately.
+  is_one_time: z.boolean().optional(),
 });
 export type ManualTransactionInput = z.infer<typeof manualTransactionInputSchema>;
 
@@ -51,6 +54,9 @@ export const transactionCorrectionInputSchema = z.object({
   // (a refund, a friend settling a bill you fronted)? A salary credit must
   // stay false or it skews total_spent.
   is_reimbursement: z.boolean().optional(),
+  // Only meaningful on a debit: mark a big, non-recurring purchase so it does
+  // not count toward this month's spend or budget.
+  is_one_time: z.boolean().optional(),
 });
 export type TransactionCorrectionInput = z.infer<typeof transactionCorrectionInputSchema>;
 
@@ -72,6 +78,7 @@ export interface Transaction {
   source: TransactionSource;
   note: string | null;
   is_reimbursement: boolean;
+  is_one_time: boolean;
   created_at: string;
   updated_at: string;
   deleted_at: string | null;
