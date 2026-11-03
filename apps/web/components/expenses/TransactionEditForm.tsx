@@ -133,8 +133,8 @@ export function TransactionEditForm({ id, onClose }: { id: string; onClose: () =
 
         {transaction.type === "debit" && (
           <Field
-            label="Big purchase"
-            tag={<span className="normal-case text-ink-4">a laptop, an appliance — not a normal month</span>}
+            label="One-time expense"
+            tag={<span className="normal-case text-ink-4">an unusual, non-recurring expense</span>}
           >
             <label className="flex items-center gap-2.5 text-sm text-ink">
               <input type="checkbox" checked={isOneTime} onChange={(e) => setIsOneTime(e.target.checked)} />

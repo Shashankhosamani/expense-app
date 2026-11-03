@@ -166,9 +166,9 @@ export function AddExpenseModal() {
                 className="mt-0.5"
               />
               <span>
-                One-time big purchase
+                One-time expense
                 <span className="block text-xs text-ink-3">
-                  A laptop or appliance. Kept out of this month&apos;s spending and budget.
+                  Not part of your regular spending. Kept out of this month&apos;s spending and budget.
                 </span>
               </span>
             </label>

@@ -61,8 +61,8 @@ export function BudgetSummaryCard({ summary, budget }: { summary: MonthlySummary
 
       {summary && summary.one_time_count > 0 && (
         <div className="rounded-lg bg-warn-tint border border-[#FFD9AC] px-3.5 py-2.5 text-xs text-[#A9670A]">
-          Not counted above: {formatINR(summary.one_time_spent)} on {summary.one_time_count} big{" "}
-          {summary.one_time_count === 1 ? "purchase" : "purchases"} this month.
+          Not counted above: {formatINR(summary.one_time_spent)} on {summary.one_time_count} one-time{" "}
+          {summary.one_time_count === 1 ? "expense" : "expenses"} this month.
         </div>
       )}
 

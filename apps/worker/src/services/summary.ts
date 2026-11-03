@@ -59,8 +59,8 @@ function spentForMonth(db: SupabaseClient, userId: string, month: string): Promi
 
 // Only credits explicitly flagged is_reimbursement offset expenditure — e.g. a merchant
 // refund. An ordinary credit like salary must NOT reduce total_spent.
-// Debits flagged is_one_time (a laptop, an appliance) are big purchases outside the normal
-// monthly pattern: they are left out here and reported separately.
+// Debits flagged is_one_time are one-off purchases outside the normal monthly pattern:
+// they are left out here and reported separately.
 function netSpent(
   rows: { amount: string | number; type: TransactionType; is_reimbursement: boolean; is_one_time: boolean }[]
 ): number {

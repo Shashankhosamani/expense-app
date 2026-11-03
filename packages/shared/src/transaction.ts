@@ -34,8 +34,8 @@ export const manualTransactionInputSchema = z.object({
   reference_id: z.string().optional(),
   note: z.string().optional(),
   is_reimbursement: z.boolean().optional(),
-  // A big purchase outside the normal monthly pattern (laptop, appliance).
-  // Kept out of monthly spend/budget and reported separately.
+  // A one-off purchase outside the normal monthly pattern. Kept out of
+  // monthly spend/budget and reported separately.
   is_one_time: z.boolean().optional(),
 });
 export type ManualTransactionInput = z.infer<typeof manualTransactionInputSchema>;
